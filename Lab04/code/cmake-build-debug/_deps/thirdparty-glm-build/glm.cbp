@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="glm"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\cmake-build-debug\;CMake Files\cmake-build-debug\_deps\;CMake Files\cmake-build-debug\_deps\thirdparty-glfw-src\;CMake Files\cmake-build-debug\_deps\thirdparty-glfw-src\src\;CMake Files\cmake-build-debug\_deps\thirdparty-glfw-src\examples\;CMake Files\cmake-build-debug\_deps\thirdparty-glfw-src\tests\;CMake Files\cmake-build-debug\_deps\thirdparty-glew-src\;CMake Files\cmake-build-debug\_deps\thirdparty-glew-src\build\;CMake Files\cmake-build-debug\_deps\thirdparty-glew-src\build\cmake\;CMake Files\cmake-build-debug\_deps\thirdparty-glm-src\;CMake Files\cmake-build-debug\_deps\thirdparty-glm-src\glm\;CMake Files\cmake\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glm-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glm-build/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glm-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glm-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glm-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glfw-src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cmake-build-debug\_deps\thirdparty-glfw-src\"/>
+		</Unit>
+		<Unit filename="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glfw-src/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cmake-build-debug\_deps\thirdparty-glfw-src\src\"/>
+		</Unit>
+		<Unit filename="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glfw-src/src/glfw3.pc.in">
+			<Option virtualFolder="CMake Files\cmake-build-debug\_deps\thirdparty-glfw-src\src\"/>
+		</Unit>
+		<Unit filename="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glfw-src/src/glfw3Config.cmake.in">
+			<Option virtualFolder="CMake Files\cmake-build-debug\_deps\thirdparty-glfw-src\src\"/>
+		</Unit>
+		<Unit filename="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glfw-src/src/glfw_config.h.in">
+			<Option virtualFolder="CMake Files\cmake-build-debug\_deps\thirdparty-glfw-src\src\"/>
+		</Unit>
+		<Unit filename="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glfw-src/examples/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cmake-build-debug\_deps\thirdparty-glfw-src\examples\"/>
+		</Unit>
+		<Unit filename="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glfw-src/tests/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cmake-build-debug\_deps\thirdparty-glfw-src\tests\"/>
+		</Unit>
+		<Unit filename="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glew-src/glew.pc.in">
+			<Option virtualFolder="CMake Files\cmake-build-debug\_deps\thirdparty-glew-src\"/>
+		</Unit>
+		<Unit filename="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glew-src/build/cmake/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cmake-build-debug\_deps\thirdparty-glew-src\build\cmake\"/>
+		</Unit>
+		<Unit filename="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glew-src/build/cmake/cmake_uninstall.cmake.in">
+			<Option virtualFolder="CMake Files\cmake-build-debug\_deps\thirdparty-glew-src\build\cmake\"/>
+		</Unit>
+		<Unit filename="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glm-src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cmake-build-debug\_deps\thirdparty-glm-src\"/>
+		</Unit>
+		<Unit filename="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake-build-debug/_deps/thirdparty-glm-src/glm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cmake-build-debug\_deps\thirdparty-glm-src\glm\"/>
+		</Unit>
+		<Unit filename="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake/BuildGLEW.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake/BuildGLFW.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="C:/Users/sonia/Downloads/COMP371_FinalProject/Lab04/code/cmake/BuildGLM.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
