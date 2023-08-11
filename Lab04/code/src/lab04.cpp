@@ -864,7 +864,19 @@ public:
                 glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
                 glUniform3fv(colorLocation, 1, glm::value_ptr(glm::vec3(0.87f, 0.72f, 0.53f)));
                 glDrawArrays(polygonMode, 0, 36);
-                CurrentPosition = translate(mat4(1.0f), vec3(1.0f, 1.0f, 0.0f));
+                CurrentPosition = translate(mat4(1.0f), vec3(1.0f, -1000.0f, 0.0f));
+                break;
+            }
+
+            case 'f': {
+                mat4 upperarmWorldMatrix = scale(mat4(1.0f), vec3(6.0f, 1.0f, 2.0f));
+                UpperArmGroupMatrix =
+                        UpperarmgroupTransferMatrix * UpperarmgroupRotationMatrix * UpperarmgroupScaleMatrix;
+                modelMatrix = UpperArmGroupMatrix * upperarmWorldMatrix;
+                glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+                glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 0.99, 0.88)));
+                glDrawArrays(polygonMode, 0, 36);
+                CurrentPosition = translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f));
                 break;
             }
             default: {
@@ -916,6 +928,18 @@ public:
                 modelMatrix = LowerArmGroupMatrix * LowerArmMatrixSonia;
                 glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
                 glUniform3fv(colorLocation, 1, value_ptr(vec3(0.87f, 0.72f, 0.53f)));
+                glDrawArrays(polygonMode, 0, 36);
+                break;
+            }
+            case 'f': {
+                mat4 lowerarmWorldMatrix =
+                        translate(mat4(1.0f), vec3(3.0f, 2.5f, 0.0f)) * scale(mat4(1.0f), vec3(1.0f, 5.0f, 2.0f));
+                LowerArmGroupMatrix = UpperArmGroupMatrix * LowerarmgroupTransferMatrix * LowerarmgroupRotationMatrix *
+                                      LowerarmgroupScaleMatrix;
+                modelMatrix = LowerArmGroupMatrix * lowerarmWorldMatrix;
+                glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+                glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 0.99, 0.88)));
+
                 glDrawArrays(polygonMode, 0, 36);
                 break;
             }
@@ -1236,6 +1260,79 @@ public:
 
                 break;
             }
+            case 'f': {
+                mat4 handle1WorldMatrix =
+                        translate(mat4(1.0f), vec3(3.0f, 9.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 8.0f, 2.0f));
+                RacketGroupMatrix = LowerArmGroupMatrix * RacketgroupTransferMatrix * RacketgroupRotationMatrix *
+                                    RacketgroupScaleMatrix;
+                modelMatrix = RacketGroupMatrix * handle1WorldMatrix;
+                glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+                glUniform3fv(colorLocation, 1, value_ptr(vec3(0.0, 0.99, 0.0)));// adding the color desired
+                glDrawArrays(polygonMode, 0, 36);
+                //  *rotate(mat4(1.0f), radians(testangle), vec3(0.0f, 1.0f, 0.0f))
+                mat4 rackWorldMatrix =
+                        translate(mat4(1.0f), vec3(3.0f, 14.0f, 0.0f)) * scale(mat4(1.0f), vec3(1.0f, 1.0f, 10.0f));
+                RacketGroupMatrix = LowerArmGroupMatrix * RacketgroupTransferMatrix * RacketgroupRotationMatrix *
+                                    RacketgroupScaleMatrix;
+                modelMatrix = RacketGroupMatrix * rackWorldMatrix;
+                glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+                glUniform3fv(colorLocation, 1, value_ptr(vec3(0.0, 0.99, 0.0)));// adding the color desired
+                glDrawArrays(polygonMode, 0, 36);
+
+                rackWorldMatrix = translate(mat4(1.0f), vec3(3.0f, 17.5f, -4.5f)) *
+                                  rotate(mat4(1.0f), radians(90.0f), vec3(1.0f, 0.0f, 0.0f)) *
+                                  scale(mat4(1.0f), vec3(1.0f, 1.0f, 8.0f));
+                RacketGroupMatrix = LowerArmGroupMatrix * RacketgroupTransferMatrix * RacketgroupRotationMatrix *
+                                    RacketgroupScaleMatrix;
+                modelMatrix = RacketGroupMatrix * rackWorldMatrix;
+                glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+                glUniform3fv(colorLocation, 1, value_ptr(vec3(0.0, 0.99, 0.0)));// adding the color desired
+                glDrawArrays(polygonMode, 0, 36);
+
+                rackWorldMatrix = translate(mat4(1.0f), vec3(3.0f, 17.5f, 4.5f)) *
+                                  rotate(mat4(1.0f), radians(90.0f), vec3(1.0f, 0.0f, 0.0f)) *
+                                  scale(mat4(1.0f), vec3(1.0f, 1.0f, 8.0f));
+                RacketGroupMatrix = LowerArmGroupMatrix * RacketgroupTransferMatrix * RacketgroupRotationMatrix *
+                                    RacketgroupScaleMatrix;
+                modelMatrix = RacketGroupMatrix * rackWorldMatrix;
+                glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+                glUniform3fv(colorLocation, 1, value_ptr(vec3(0.0, 0.99, 0.0)));// adding the color desired
+                glDrawArrays(polygonMode, 0, 36);
+
+                rackWorldMatrix =
+                        translate(mat4(1.0f), vec3(3.0f, 21.0f, 0.0f)) * scale(mat4(1.0f), vec3(1.0f, 1.0f, 10.0f));
+                RacketGroupMatrix = LowerArmGroupMatrix * RacketgroupTransferMatrix * RacketgroupRotationMatrix *
+                                    RacketgroupScaleMatrix;
+                modelMatrix = RacketGroupMatrix * rackWorldMatrix;
+                glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+                glUniform3fv(colorLocation, 1, value_ptr(vec3(0.0, 0.99, 0.0)));// adding the color desired
+                glDrawArrays(polygonMode, 0, 36);
+                for (int i = 16; i < 22; ++i) {
+                    rackWorldMatrix = translate(mat4(1.0f), vec3(3.0f, i * 1.0f, 0.0f))
+                                      * rotate(mat4(1.0f), radians(90.0f), vec3(1.0f, 0.0f, 0.0f)) *
+                                      scale(mat4(1.0f), vec3(0.1f, 10.0f, 0.1f));
+                    RacketGroupMatrix = LowerArmGroupMatrix * RacketgroupTransferMatrix * RacketgroupRotationMatrix *
+                                        RacketgroupScaleMatrix;
+                    modelMatrix = RacketGroupMatrix * rackWorldMatrix;
+                    glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+                    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 0.0, 0.0)));
+                    glDrawArrays(polygonMode, 0, 36);
+
+                }
+                for (int i = -4; i < 4; ++i) {
+                    rackWorldMatrix = translate(mat4(1.0f), vec3(3.0f, 17.5f, i * 1.0f))
+                                      * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f)) *
+                                      scale(mat4(1.0f), vec3(0.1f, 8.0f, 0.1f));
+                    RacketGroupMatrix = LowerArmGroupMatrix * RacketgroupTransferMatrix * RacketgroupRotationMatrix *
+                                        RacketgroupScaleMatrix;
+                    modelMatrix = RacketGroupMatrix * rackWorldMatrix;
+                    glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+                    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 0.0, 0.0)));
+                    glDrawArrays(polygonMode, 0, 36);
+
+                }
+                break;
+            }
             default: {
                 break;
             }
@@ -1302,7 +1399,6 @@ private:
     int texturedshader;
     int ID;
 };
-
 
 
 int main(int argc, char* argv[]) {
@@ -1444,13 +1540,12 @@ int main(int argc, char* argv[]) {
 
     //Create Tennis Objects
 
-    //Tennis T1(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 1, 'p');
+    Tennis T1(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 1, 'p');
     Tennis T2(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 2, 'y');
-    Tennis T3(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 3, 's');
 
-    //T1.ChangeTennisPosition(translate(mat4(1.0f), vec3(0.0f, 0.0f, 3.0f)));
-    T2.ChangeTennisPosition(translate(mat4(1.0f), vec3(0.0f, 0.0f, 20.0f)) * scale(mat4(1.0f), vec3(0.35f, 0.35f, 0.35f)));
-    T3.ChangeTennisPosition(translate(mat4(1.0f), vec3(0.0f, 0.0f, -20.0f)));
+    T1.ChangeTennisPosition(translate(mat4(1.0f), vec3(7.0f, 0.0f, 7.0f)));
+    T2.ChangeTennisPosition(translate(mat4(1.0f), vec3(-7.0f, 0.0f, -7.0f)) * scale(mat4(1.0f), vec3(0.35f, 0.35f, 0.35f)));
+
 
     Tennis* TCurrent = new Tennis();
     TCurrent = &T2;
@@ -1504,6 +1599,30 @@ int main(int argc, char* argv[]) {
     GLuint worldLocationMatrix = glGetUniformLocation(shaderProgram, "worldMatrix");
     GLuint lightSpaceMatrixLocation = glGetUniformLocation(shaderProgram, "lightSpaceMatrix");
     GLuint lightSpaceMatrixDepthLocation = glGetUniformLocation(depthShaderProgram, "lightSpaceMatrix");
+
+    //Sonia
+    bool gotUserInput = false;
+    int playerMode = 0;
+    float isDouble = false;
+    Tennis T3(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 3, 's');
+    Tennis T4(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 4, 'f');
+
+    while(!gotUserInput){
+
+        std::cout << "Please choose whether you want single (1) or double (2) player mode: ";
+        std::cin >> playerMode;
+        if(playerMode==2){
+            isDouble = true;
+            T3.ChangeTennisPosition(translate(mat4(1.0f), vec3(-7.0f, 0.0f, 7.0f))) ;
+            T4.ChangeTennisPosition(translate(mat4(1.0f), vec3(7.0f, 0.0f, -7.0f)) *scale(mat4(1.0f), vec3(0.35f, 0.35f, 0.35f))) ;
+
+        }
+
+
+        std::cout << "You may now start your game!\n";
+        gotUserInput = true;
+
+    }
     while (!glfwWindowShouldClose(window)) {
 
 
@@ -1556,21 +1675,26 @@ int main(int argc, char* argv[]) {
         glBindVertexArray(texturedCubeVAO);
         MidSectionCreation(depthWorldMatrixLocation, colorLocation);
 
-        //T1.changeWorldMatrix(depthWorldMatrixLocation);
-        //T1.changeShader(depthShaderProgram);
-        //T1.Draw(metalTextureID, metalTextureID, racket1TextureID);
-        //T1.changeWorldMatrix(worldMatrixLocation);
+        T1.changeWorldMatrix(depthWorldMatrixLocation);
+        T1.changeShader(depthShaderProgram);
+        T1.Draw(metalTextureID, metalTextureID, racket1TextureID);
+        T1.changeWorldMatrix(worldMatrixLocation);
 
         T2.changeWorldMatrix(depthWorldMatrixLocation);
         T2.changeShader(depthShaderProgram);
         T2.Draw(metalTextureID, metalTextureID, racket2TextureID);
         T2.changeWorldMatrix(worldMatrixLocation);
+        if(isDouble){
+            T3.changeWorldMatrix(depthWorldMatrixLocation);
+            T3.changeShader(depthShaderProgram);
+            T3.Draw(metalTextureID, metalTextureID, racket3TextureID);
+            T3.changeWorldMatrix(worldMatrixLocation);
 
-        T3.changeWorldMatrix(depthWorldMatrixLocation);
-        T3.changeShader(depthShaderProgram);
-        T3.Draw(metalTextureID, metalTextureID, racket3TextureID);
-        T3.changeWorldMatrix(worldMatrixLocation);
-
+            T4.changeWorldMatrix(depthWorldMatrixLocation);
+            T4.changeShader(depthShaderProgram);
+            T4.Draw(metalTextureID, metalTextureID, racket3TextureID);
+            T4.changeWorldMatrix(worldMatrixLocation);
+        }
 
         ///// second passs
 
@@ -1591,14 +1715,19 @@ int main(int argc, char* argv[]) {
         glUniform1i(textureLocation, 1);
         glBindVertexArray(texturedCubeVAO);
 
-        //T1.changeShader(texturedShaderProgram);
-        //T1.Draw(metalTextureID, metalTextureID, racket1TextureID);
+        T1.changeShader(texturedShaderProgram);
+        T1.Draw(metalTextureID, metalTextureID, racket1TextureID);
         T2.changeShader(texturedShaderProgram);
         T2.Draw(metalTextureID, metalTextureID, racket2TextureID);
-        T3.changeShader(texturedShaderProgram);
-        T3.Draw(metalTextureID, metalTextureID, racket3TextureID);
 
 
+        if(isDouble){
+            T3.changeShader(texturedShaderProgram);
+            T3.Draw(metalTextureID, metalTextureID, racket3TextureID);
+            T4.changeShader(texturedShaderProgram);
+            T4.Draw(metalTextureID, metalTextureID, racket3TextureID);
+
+        }
         glBindTexture(GL_TEXTURE_2D, greenTextureID);
         glBindVertexArray(sphereVAO);
         SphereWorldMatrix = translate(mat4(1.0f), vec3(0.0f, 8.0f, 6.0f));
@@ -1671,10 +1800,15 @@ int main(int argc, char* argv[]) {
         glBindVertexArray(texturedCubeVAO);
         glBindTexture(GL_TEXTURE_2D, glossyTextureID);
 
-        T2.changeShader(texturedShaderProgram);
-        //T1.Draw(metalTextureID, metalTextureID, glossyTextureID);
+        T1.changeShader(texturedShaderProgram);
+        T1.Draw(metalTextureID, metalTextureID, glossyTextureID);
         T2.Draw(metalTextureID, metalTextureID, metalTextureID);
-        T3.Draw(metalTextureID, metalTextureID, metalTextureID);
+
+        if(isDouble){
+            T3.Draw(metalTextureID, metalTextureID, metalTextureID);
+            T4.Draw(metalTextureID, metalTextureID, metalTextureID);
+
+        }
 
         //Create BALL
         glBindVertexArray(texturedCubeVAO);
@@ -1981,11 +2115,11 @@ int main(int argc, char* argv[]) {
         previousSpaceState = glfwGetKey(window, GLFW_KEY_SPACE);
 
         //Getting which Tennis to move
-        //if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) // move left
-        //{
-        //    TCurrent = &T1;
+        if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) // move left
+        {
+            TCurrent = &T1;
 
-        //}
+        }
         if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) // move left
         {
             TCurrent = &T2;
