@@ -8,6 +8,8 @@
 // shadow from the lab session
 // texture from the lab session
 //
+#include <thread>    // for std::this_thread::sleep_for
+#include <chrono>    // for std::chrono::seconds
 
 
 #include <iostream>
@@ -297,12 +299,13 @@ const char* getFragmentShaderSource() {
             "uniform int useTexture = 0;"
             "uniform int useTexture1 = 0;"
             "uniform vec3 lightPos;"
+            "uniform float lightPower = 10.0f;"
             "void main()"
             "{"
             "   vec4 textureColor = texture( textureSampler, vertexUV );"
 
             "  vec3 lightColor = vec3(1,1,1);"
-            "  float lightPower = 100.0f;"
+
             ""
             "  vec3 diffuseColor = objectColor;"
             "  vec3 specularColor = vec3(0.5,0.5,0.5);"
@@ -508,36 +511,15 @@ int compileAndLinkDepthShaders(const char* vertexShaderSource, const char* fragm
 void DrawGrid(GLuint worldmatrix, GLuint colorLocation, int shader_id) {
     glGetUniformLocation(shader_id, "objectColor");
     mat4 gridWorldMatrix;
-    for (int i = 0; i < 51; ++i) {
-        gridWorldMatrix = translate(mat4(1.0f), vec3(i * 1.0f, 0.0f, 0.0f))
-                          * rotate(mat4(1.0f), radians(90.0f), vec3(1.0f, 0.0f, 0.0f)) *
-                          scale(mat4(1.0f), vec3(0.02f, 100.0f, 0.02f));
+
+        gridWorldMatrix = translate(mat4(1.0f), vec3(0.0f, -5.0f, 0.0f))
+                          * rotate(mat4(1.0f), radians(0.0f), vec3(1.0f, 0.0f, 0.0f)) *
+                          scale(mat4(1.0f), vec3(100.0f, -2.0f, 100.0f));
         glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &gridWorldMatrix[0][0]);
         glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0f, 1.0f, 0.0f)));
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
-        gridWorldMatrix = translate(mat4(1.0f), vec3(i * -1.0f, 0.0f, 0.0f))
-                          * rotate(mat4(1.0f), radians(90.0f), vec3(1.0f, 0.0f, 0.0f)) *
-                          scale(mat4(1.0f), vec3(0.02f, 100.0f, 0.02f));
-        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &gridWorldMatrix[0][0]);
-        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0f, 1.0f, 0.0f)));
-        glDrawArrays(GL_TRIANGLES, 0, 36);
 
-        gridWorldMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, i * 1.0f))
-                          * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 0.0f, 1.0f)) *
-                          scale(mat4(1.0f), vec3(0.02f, 100.0f, 0.02f));
-        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &gridWorldMatrix[0][0]);
-        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0f, 1.0f, 0.0f)));
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-
-        gridWorldMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, i * -1.0f))
-                          * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 0.0f, 1.0f)) *
-                          scale(mat4(1.0f), vec3(0.02f, 100.0f, 0.02f));
-        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &gridWorldMatrix[0][0]);
-        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0f, 1.0f, 0.0f)));
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-
-    }
 }
 
 void DrawCoordinates(GLuint worldmatrix, GLuint colorLocation, float worldXAngle, float worldYAngle) {
@@ -793,6 +775,521 @@ GLuint setupModelVBO(string path, int& vertexCount);
 
 // Sets up a model using an Element Buffer Object to refer to vertex data
 GLuint setupModelEBO(string path, int& vertexCount);
+
+class Number
+{
+#include <glm/gtc/matrix_transform.hpp>
+public:
+
+    Number() {};
+
+    Number(GLuint worldmatrix, GLuint colorLocation, GLenum polygonMode, int texturedshader, int ID, char Number, GLuint poleTexture, GLuint boxTexture, GLuint numberTexture)
+    {
+        this->worldmatrix = worldmatrix;
+        this->colorLocation = colorLocation;
+        this->polygonMode = polygonMode;
+        this->letter = letter;
+        this->texturedshader = texturedshader;
+        this->ID = ID;
+        this->numberTexture = numberTexture;
+        this->boxTexture = boxTexture;
+        this->poleTexture = poleTexture;
+    }
+
+    void DrawPlayerScore(int score) {
+        switch (this->ID)
+        {
+            case 1:
+                this->NumbersSide = translate(mat4(1.0f), vec3(-24.0f, 13.0f, 5.0f)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f));
+                break;
+
+            case 2:
+                this->NumbersSide = translate(mat4(1.0f), vec3(-24.0f, 13.0f, -5.0f)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f));
+                break;
+
+            default:
+                break;
+        }
+
+        switch (score)
+        {
+
+            case 0:
+                DrawZero();
+                break;
+            case 1:
+                DrawOne();
+                break;
+            case 2:
+                DrawTwo();
+                break;
+
+            case 3:
+                DrawThree();
+                break;
+
+            case 4:
+                DrawFour();
+                break;
+
+            case 5:
+                DrawFive();
+                break;
+
+            case 6:
+                DrawSix();
+                break;
+
+            case 7:
+                DrawSeven();
+                break;
+
+            case 8:
+                DrawEight();
+                break;
+
+            case 9:
+                DrawNine();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    void DrawZero() {
+        glBindTexture(GL_TEXTURE_2D, numberTexture);
+
+        mat4 HorizontalDownMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalDownMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleRight1Matrix = translate(mat4(1.0f), vec3(1.0f, 0.75f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleRight1Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleLeft1Matrix = translate(mat4(1.0f), vec3(-1.0f, 0.75f, 0.0f)) *
+                                   scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleLeft1Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleLeft2Matrix = translate(mat4(1.0f), vec3(-1.0f, 2.25f, 0.0f)) *
+                                   scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleLeft2Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleRight2Matrix = translate(mat4(1.0f), vec3(1.0f, 2.25f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleRight2Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+
+        mat4 HorizontalUpMatrix = translate(mat4(1.0f), vec3(0.0f, 3.5f, 0.0f)) *
+                                  scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalUpMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+    }
+
+    void DrawOne() {
+        glBindTexture(GL_TEXTURE_2D, numberTexture);
+        mat4 HorizontalDownMatrix = translate(mat4(1.0f), vec3(0.0f, 1.5f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(1.0f, 3.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalDownMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+    }
+
+    void DrawTwo() {
+        glBindTexture(GL_TEXTURE_2D, numberTexture);
+        mat4 HorizontalDownMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalDownMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleLeftMatrix = translate(mat4(1.0f), vec3(-1.0f, 0.75f, 0.0f)) *
+                                  scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleLeftMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 HorizontalMiddleMatrix = translate(mat4(1.0f), vec3(0.0f, 2.0f, 0.0f)) *
+                                      scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalMiddleMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleRightMatrix = translate(mat4(1.0f), vec3(1.0f, 3.0f, 0.0f)) *
+                                   scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleRightMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 HorizontalUpMatrix = translate(mat4(1.0f), vec3(0.0f, 4.0f, 0.0f)) *
+                                  scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalUpMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+    }
+
+    void DrawThree() {
+        glBindTexture(GL_TEXTURE_2D, numberTexture);
+        mat4 HorizontalDownMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalDownMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleLeft1Matrix = translate(mat4(1.0f), vec3(1.0f, 0.75f, 0.0f)) *
+                                   scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleLeft1Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 HorizontalMiddleMatrix = translate(mat4(1.0f), vec3(0.0f, 2.0f, 0.0f)) *
+                                      scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalMiddleMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleRight2Matrix = translate(mat4(1.0f), vec3(1.0f, 3.0f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleRight2Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 HorizontalUpMatrix = translate(mat4(1.0f), vec3(0.0f, 4.0f, 0.0f)) *
+                                  scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalUpMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+    }
+
+    void DrawFour() {
+        glBindTexture(GL_TEXTURE_2D, numberTexture);
+        mat4 VerticleRight1Matrix = translate(mat4(1.0f), vec3(1.0f, 0.75f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleRight1Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 HorizontalMiddleMatrix = translate(mat4(1.0f), vec3(0.0f, 2.0f, 0.0f)) *
+                                      scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalMiddleMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleRight2Matrix = translate(mat4(1.0f), vec3(1.0f, 3.0f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleRight2Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleLeftMatrix = translate(mat4(1.0f), vec3(-1.0f, 3.0f, 0.0f)) *
+                                  scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleLeftMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+
+    }
+
+    void DrawFive() {
+        glBindTexture(GL_TEXTURE_2D, numberTexture);
+        mat4 HorizontalDownMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalDownMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleRightMatrix = translate(mat4(1.0f), vec3(1.0f, 0.75f, 0.0f)) *
+                                   scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleRightMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 HorizontalMiddleMatrix = translate(mat4(1.0f), vec3(0.0f, 2.0f, 0.0f)) *
+                                      scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalMiddleMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleLeftMatrix = translate(mat4(1.0f), vec3(-1.0f, 3.0f, 0.0f)) *
+                                  scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleLeftMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+
+        mat4 HorizontalUpMatrix = translate(mat4(1.0f), vec3(0.0f, 4.0f, 0.0f)) *
+                                  scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalUpMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+    }
+
+    void DrawSix() {
+        glBindTexture(GL_TEXTURE_2D, numberTexture);
+        mat4 HorizontalDownMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalDownMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleRightMatrix = translate(mat4(1.0f), vec3(1.0f, 0.75f, 0.0f)) *
+                                   scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleRightMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleLeft1Matrix = translate(mat4(1.0f), vec3(-1.0f, 0.75f, 0.0f)) *
+                                   scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleLeft1Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 HorizontalMiddleMatrix = translate(mat4(1.0f), vec3(0.0f, 2.0f, 0.0f)) *
+                                      scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalMiddleMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleLeft2Matrix = translate(mat4(1.0f), vec3(-1.0f, 3.0f, 0.0f)) *
+                                   scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleLeft2Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+
+        mat4 HorizontalUpMatrix = translate(mat4(1.0f), vec3(0.0f, 4.0f, 0.0f)) *
+                                  scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalUpMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+    }
+
+    void DrawSeven() {
+        glBindTexture(GL_TEXTURE_2D, numberTexture);
+        mat4 VerticleMatrix = translate(mat4(1.0f), vec3(0.0f, 1.5f, 0.0f)) *
+                              scale(mat4(1.0f), vec3(1.0f, 3.0f, 1.0f));
+        modelMatrix = NumbersSide * VerticleMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 HorizontalMatrix = translate(mat4(1.0f), vec3(-1.0f, 2.5f, 0.0f)) *
+                                scale(mat4(1.0f), vec3(2.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+    }
+
+    void DrawEight() {
+        glBindTexture(GL_TEXTURE_2D, numberTexture);
+        mat4 HorizontalDownMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalDownMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleRight1Matrix = translate(mat4(1.0f), vec3(1.0f, 0.75f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleRight1Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleLeft1Matrix = translate(mat4(1.0f), vec3(-1.0f, 0.75f, 0.0f)) *
+                                   scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleLeft1Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 HorizontalMiddleMatrix = translate(mat4(1.0f), vec3(0.0f, 2.0f, 0.0f)) *
+                                      scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalMiddleMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleLeft2Matrix = translate(mat4(1.0f), vec3(-1.0f, 3.0f, 0.0f)) *
+                                   scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleLeft2Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleRight2Matrix = translate(mat4(1.0f), vec3(1.0f, 3.0f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleRight2Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+
+        mat4 HorizontalUpMatrix = translate(mat4(1.0f), vec3(0.0f, 4.0f, 0.0f)) *
+                                  scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalUpMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+    }
+
+    void DrawNine() {
+        glBindTexture(GL_TEXTURE_2D, numberTexture);
+        mat4 HorizontalDownMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalDownMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleRight1Matrix = translate(mat4(1.0f), vec3(1.0f, 0.75f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleRight1Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+
+        mat4 HorizontalMiddleMatrix = translate(mat4(1.0f), vec3(0.0f, 2.0f, 0.0f)) *
+                                      scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalMiddleMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleLeft2Matrix = translate(mat4(1.0f), vec3(-1.0f, 3.0f, 0.0f)) *
+                                   scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleLeft2Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 VerticleRight2Matrix = translate(mat4(1.0f), vec3(1.0f, 3.0f, 0.0f)) *
+                                    scale(mat4(1.0f), vec3(1.0f, 1.5f, 1.0f));
+        modelMatrix = NumbersSide * VerticleRight2Matrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+
+        mat4 HorizontalUpMatrix = translate(mat4(1.0f), vec3(0.0f, 4.0f, 0.0f)) *
+                                  scale(mat4(1.0f), vec3(3.0f, 1.0f, 1.0f));
+        modelMatrix = NumbersSide * HorizontalUpMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+    }
+
+    void DrawScoreBoard() {
+        glBindTexture(GL_TEXTURE_2D, poleTexture);
+        mat4 GroupTransferMatrix = translate(mat4(1.0f), vec3(-26.0f, 0.0f, 0.0f));
+        mat4 VerticleMatrix = translate(mat4(1.0f), vec3(0.0f, 6.0f, 0.0f)) *
+                              scale(mat4(1.0f), vec3(3.0f, 12.0f, 3.0f));
+        modelMatrix = GroupTransferMatrix * VerticleMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+        mat4 HorizontalMatrix = translate(mat4(1.0f), vec3(0.0f, 15.0f, 0.0f)) *
+                                scale(mat4(1.0f), vec3(3.0f, 6.0f, 16.0f));
+        modelMatrix = GroupTransferMatrix * HorizontalMatrix;
+        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(0.5, 0.5, 0.0)));
+        glDrawArrays(polygonMode, 0, 36);
+
+    }
+
+    void changeWorldMatrix(GLuint newWorldMatrix) {
+        this->worldmatrix = newWorldMatrix;
+
+    }
+
+
+
+    void ChangeTennisColor(float R, float G, float B) {
+        color[0] = R;
+        color[1] = G;
+        color[2] = B;
+    }
+    void setPolygoneMode(GLenum polygoneMode) {
+        this->polygonMode = polygoneMode;
+    }
+
+    void changeShader(int shader_id) {
+        this->texturedshader = shader_id;
+    }
+
+    mat4 NumbersSide = mat4(1.0f);
+    char letter;
+private:
+    GLuint poleTexture;
+    GLuint boxTexture;
+    GLuint numberTexture;
+    mat4 UpperArmGroupMatrix = mat4(1.0f);
+    mat4 LowerArmGroupMatrix = mat4(1.0f);
+    mat4 RacketGroupMatrix = mat4(1.0f);
+
+    GLuint worldmatrix;
+    GLuint colorLocation;
+    GLenum polygonMode = GL_TRIANGLES;
+    mat4 modelMatrix;
+    mat4 MiddleCoord;
+
+    float color[3] = { 0.0,0.0,0.0 };
+
+    int texturedshader;
+    int ID;
+};
+
 
 class Tennis
 {
@@ -1410,6 +1907,7 @@ int main(int argc, char* argv[]) {
     GLuint staduimTextureID = loadTexture("../assets/textures/staduim.jpg");
     GLuint glossyTextureID = loadTexture("../assets/textures/glossy.jpg");
     GLuint greenTextureID = loadTexture("../assets/textures/green.jpg");
+    GLuint blueTextureID = loadTexture("../assets/textures/blue.png");
 
     GLuint metalTextureID = loadTexture("../assets/textures/metal.jpg");
     GLuint treeTextureID = loadTexture("../assets/textures/tree.jpg");
@@ -1420,6 +1918,13 @@ int main(int argc, char* argv[]) {
     GLuint racket1TextureID = loadTexture("../assets/textures/letter1.png");
     GLuint racket2TextureID = loadTexture("../assets/textures/letter2.jpg");
     GLuint racket3TextureID = loadTexture("../assets/textures/letter4.jpg");
+    GLuint skinTextureID = loadTexture("../assets/textures/skin.png");
+
+    GLuint num2ID = loadTexture("../assets/textures/letter4.png");
+    GLuint grassID = loadTexture("../assets/textures/grass.png");
+
+
+
     // Setup models
 #if defined(PLATFORM_OSX)
     string heraclesPath = "Models/heracles.obj";
@@ -1431,11 +1936,8 @@ int main(int argc, char* argv[]) {
     string chairPath = "../Assets/Models/c.obj";
     string manPath = "../Assets/Models/man.obj";
     string boyPath = "../Assets/Models/ballboy.obj";
+    string staduimPath = "../Assets/Models/man.obj";
 #endif
-
-
-
-
     // Background Color
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     int heraclesVertices;
@@ -1443,6 +1945,11 @@ int main(int argc, char* argv[]) {
 
     int activeVertices = heraclesVertices;
     GLuint activeVAO = heraclesVAO;
+
+    int staduimVertices;
+    GLuint staduimVAO = setupModelEBO(staduimPath, staduimVertices);
+    int activeVertices5 = staduimVertices;
+    GLuint activeVAO5 = staduimVAO;
 
     int chairVertices;
     GLuint chairVAO = setupModelEBO(chairPath, chairVertices);
@@ -1488,7 +1995,7 @@ int main(int argc, char* argv[]) {
     vec3 cameraPosition(10.0f, 10.0f, 10.0f);
     vec3 cameraLookAt(0.0f, 0.0f, -1.0f); // Set the look at position to the origin
     vec3 cameraUp(0.0f, 1.0f, 0.0f);
-    vec3 lightPos(20.0f, 50.0f, 0.0f);
+    vec3 lightPos(20.0f, 50.0f, 10.0f);
     GLuint lightLocation = glGetUniformLocation(shaderProgram, "lightPos");
     glUniform3fv(lightLocation, 1, &lightPos[0]);
 
@@ -1536,7 +2043,11 @@ int main(int argc, char* argv[]) {
     // create sphere object
     Ball b1;
 
-
+    Number one(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 1, 'p', metalTextureID, metalTextureID, num2ID);
+    Number Two(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 2, 'p', metalTextureID, metalTextureID, racket1TextureID);
+    int Score1 = 0;
+    int Score2 = 0;
+    bool IKey = 1;
 
     //Create Tennis Objects
 
@@ -1607,6 +2118,13 @@ int main(int argc, char* argv[]) {
     Tennis T3(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 3, 's');
     Tennis T4(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 4, 'f');
 
+
+
+
+    //glUniform1i(textureLocation, 1);
+    glBindVertexArray(texturedCubeVAO);
+
+//
 //    while(!gotUserInput){
 //
 //        std::cout << "Please choose whether you want single (1) or double (2) player mode: ";
@@ -1623,14 +2141,17 @@ int main(int argc, char* argv[]) {
 //        gotUserInput = true;
 //
 //    }
+    float lightPower = 200.0f;
     while (!glfwWindowShouldClose(window)) {
-
 
 
         // Frame time calculation
         float dt = glfwGetTime() - previousFrameTime;
         //sonia
         int sec = (int)glfwGetTime();
+
+
+
 
         previousFrameTime += dt;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -1708,13 +2229,29 @@ int main(int argc, char* argv[]) {
 
         glUniformMatrix4fv(lightSpaceMatrixLocation, 1, GL_FALSE, &lightSpaceMatrix[0][0]);
         glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, glossyTextureID);
+        glBindTexture(GL_TEXTURE_2D, 0);
         GLuint textureLocation = glGetUniformLocation(texturedShaderProgram, "textureSampler");
         GLuint textureshaderworld = glGetUniformLocation(texturedShaderProgram, "worldMatrix");
 
         glUniform1i(textureLocation, 1);
         glBindVertexArray(texturedCubeVAO);
 
+
+
+        if ( IKey && glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
+            Score1++;
+            Score2++;
+            IKey = 0;
+        }
+        if (glfwGetKey(window, GLFW_KEY_I) == GLFW_RELEASE) {
+            IKey = 1;
+        }
+
+        T1.changeShader(texturedShaderProgram);
+        //T1.Draw(metalTextureID, metalTextureID, racket1TextureID);
+        one.DrawScoreBoard();
+        one.DrawPlayerScore(Score1);
+        Two.DrawPlayerScore(Score2);
         T1.changeShader(texturedShaderProgram);
         T1.Draw(metalTextureID, metalTextureID, racket1TextureID);
         T2.changeShader(texturedShaderProgram);
@@ -1738,14 +2275,14 @@ int main(int argc, char* argv[]) {
         // Set light and material properties here, before drawing the mesh
         // You might set these once per frame, or even multiple times per frame if your light or material properties change
 
+        glUseProgram(texturedShaderProgram);
 
 
-        //
 
-        glUseProgram(shaderProgram);
+
         glBindTexture(GL_TEXTURE_2D, courtTextureID);
         glBindVertexArray(texturedCubeVAO);
-        mat4 groundWorldMatrix = translate(mat4(1.0f), vec3(0.0f, -0.01f, 0.0f)) * scale(mat4(1.0f), vec3(38.0f, 0.02f, 76.0f));
+        mat4 groundWorldMatrix = translate(mat4(1.0f), vec3(0.0f, 1.0f, 0.0f)) * scale(mat4(1.0f), vec3(38.0f, 0.02f, 76.0f));
         GLuint worldLocationMatrix = glGetUniformLocation(shaderProgram, "worldMatrix");
         GLuint WorldMatrixRotation = glGetUniformLocation(shaderProgram, "worldOrientationMatrix");
 
@@ -1835,6 +2372,7 @@ int main(int argc, char* argv[]) {
 
         MidSectionCreation(worldLocationMatrix, colorLocation);
         glUseProgram(texturedShaderProgram);
+        //draw sky
         glBindTexture(GL_TEXTURE_2D, greenTextureID);
         glBindVertexArray(texturedCubeVAO);
         groundWorldMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(100.0f, 100.0f, 100.0f));
@@ -1910,6 +2448,16 @@ int main(int argc, char* argv[]) {
 
 
         //////
+//        glBindVertexArray(activeVAO5);
+        // Draw
+//        glActiveTexture(GL_TEXTURE1);
+//        glBindTexture(GL_TEXTURE_2D, woodTextureID);
+//        glUniform1i(textureLocation, 1);
+//        tempworldmatrix = translate(mat4(1.0f), vec3(-30.0f, 0.0f, 0.f)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f)) * scale(mat4(1.0f), vec3(1.0f,1.0f, 1.0f));;
+//        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+//        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+//        glDrawElements(GL_TRIANGLES, activeVertices5, GL_UNSIGNED_INT, 0);
+//        glBindVertexArray(0);
 
 //sonia
         /// MINION
@@ -2060,37 +2608,27 @@ int main(int argc, char* argv[]) {
         ////////////
         //ball boy
         glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, glossyTextureID);
+        glBindTexture(GL_TEXTURE_2D, yellowTextureID);
         glUniform1i(textureLocation, 1);
         glBindVertexArray(activeVAO3);
         // Draw geometry
-        tempworldmatrix = translate(mat4(1.0f), vec3(22.0f, 0.0f, 5.0)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, -1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.1f, 0.1f, 0.1f));;
+        tempworldmatrix = translate(mat4(1.0f), vec3(22.0f, 0.0f, 5.0)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, -1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
         glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
         glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
         glDrawElements(GL_TRIANGLE_STRIP, activeVertices3, GL_UNSIGNED_INT, 0);
 
 
-        glBindVertexArray(0);
+
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, glossyTextureID);
         glUniform1i(textureLocation, 1);
         glBindVertexArray(activeVAO3);
         // Draw geometry
-        tempworldmatrix = translate(mat4(1.0f), vec3(-22.0f, 0.0f, 5.0)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.1f, 0.1f, 0.1f));;
+        tempworldmatrix = translate(mat4(1.0f), vec3(-22.0f, 0.0f, 5.0)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
         glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
         glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
         glDrawElements(GL_TRIANGLE_STRIP, activeVertices3, GL_UNSIGNED_INT, 0);
-
-
         glBindVertexArray(0);
-
-
-
-
-
-
-
-
 
         glUseProgram(shaderProgram);
 
@@ -2415,8 +2953,17 @@ int main(int argc, char* argv[]) {
 
         // Before rendering, update the light properties in the shader
 
-
-
+        if(sec < 3||6<=sec<9||12<=sec<15||18<=sec<21) {
+            lightPower = lightPower+ std::sin(sec);
+            GLuint lightLocation = glGetUniformLocation(texturedShaderProgram, "lightPower");
+            glUniform1f(lightLocation, lightPower);
+        }
+        else{
+            lightPower = lightPower+ std::cos(sec);
+            GLuint lightLocation = glGetUniformLocation(texturedShaderProgram, "lightPower");
+            glUniform1f(lightLocation, lightPower);
+        }
+        glUseProgram(0);
         glUseProgram(shaderProgram);
         GLuint viewMatrixLocation_m = glGetUniformLocation(shaderProgram, "viewMatrix");
         glUniformMatrix4fv(viewMatrixLocation_m, 1, GL_FALSE, &viewMatrix[0][0]);
