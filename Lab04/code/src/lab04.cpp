@@ -1318,7 +1318,7 @@ int main(int argc, char* argv[]) {
     GLuint metalTextureID = loadTexture("../assets/textures/metal.jpg");
     GLuint treeTextureID = loadTexture("../assets/textures/tree.jpg");
     GLuint woodTextureID = loadTexture("../assets/textures/wood.jpg");
-    GLuint yellowTextureID = loadTexture("../assets/textures/yellow.jpg");
+    GLuint yellowTextureID = loadTexture("../assets/textures/minion.png");
 
 
     GLuint racket1TextureID = loadTexture("../assets/textures/letter1.png");
@@ -1779,137 +1779,150 @@ int main(int argc, char* argv[]) {
 
 //sonia
         /// MINION
-        if(sec % 2 ==0){
-            for (float i = -30; i < 40; i = i + 10) {
-                if(i==-30||i==-10||i==10||i==30){
-                    glActiveTexture(GL_TEXTURE1);
-                    glBindTexture(GL_TEXTURE_2D, yellowTextureID);
-                    glUniform1i(textureLocation, 1);
-                    tempworldmatrix = translate(mat4(1.0f), vec3(-30.0f, 5.0, i)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f))* scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
-                    glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
-                    glBindVertexArray(activeVAO2);
-                    // Draw geometry
-                    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
-                    glDrawElements(GL_LINES, activeVertices2, GL_UNSIGNED_INT, 0);
+        for (int row = 0; row < 20; row +=5) {
 
-                    glBindVertexArray(0);
+            int height = 0;
+            row == 0 ? height = 5 : height;
+            row == 5 ? height = 10 : height;
+            row == 10 ? height = 15 : height;
+            row == 15 ? height = 20 : height;
+
+            if (sec % 2 == 0) {
+                for (float i = -30; i < 40; i = i + 5) {
+                    if (i == -30 || i == -20 || i == -10 || i == 0 || i == 10 || i == 20 || i == 30) {
+                        glActiveTexture(GL_TEXTURE1);
+                        glBindTexture(GL_TEXTURE_2D, yellowTextureID);
+                        glUniform1i(textureLocation, 1);
+                        tempworldmatrix = translate(mat4(1.0f), vec3(-30.0f - row, height + 5.0, i)) *
+                                          rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f)) *
+                                          scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
+                        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+                        glBindVertexArray(activeVAO2);
+                        // Draw geometry
+                        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+                        glDrawElements(GL_TRIANGLES, activeVertices2, GL_UNSIGNED_INT, 0);
+
+                        glBindVertexArray(0);
+                    } else {
+                        glActiveTexture(GL_TEXTURE1);
+                        glBindTexture(GL_TEXTURE_2D, yellowTextureID);
+                        glUniform1i(textureLocation, 1);
+                        tempworldmatrix = translate(mat4(1.0f), vec3(-30.0f - row, height + 5.0f, i)) *
+                                          rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f)) *
+                                          scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
+                        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+                        glBindVertexArray(activeVAO2);
+                        // Draw geometry
+                        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+                        glDrawElements(GL_TRIANGLES, activeVertices2, GL_UNSIGNED_INT, 0);
+
+                        glBindVertexArray(0);
+                    }
                 }
-                else{
-                    glActiveTexture(GL_TEXTURE1);
-                    glBindTexture(GL_TEXTURE_2D, yellowTextureID);
-                    glUniform1i(textureLocation, 1);
-                    tempworldmatrix = translate(mat4(1.0f), vec3(-30.0f, 5.0+5.0f, i)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f))* scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
-                    glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
-                    glBindVertexArray(activeVAO2);
-                    // Draw geometry
-                    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
-                    glDrawElements(GL_LINES, activeVertices2, GL_UNSIGNED_INT, 0);
 
-                    glBindVertexArray(0);
+                for (float i = -30; i < 40; i = i + 5) {
+
+                    if (i == -30 || i == -20 || i == -10 || i == 0 || i == 10 || i == 20 || i == 30) {
+                        glActiveTexture(GL_TEXTURE1);
+                        glBindTexture(GL_TEXTURE_2D, yellowTextureID);
+                        glUniform1i(textureLocation, 1);
+                        tempworldmatrix = translate(mat4(1.0f), vec3(30.0f + row, height + 10.0f, i)) *
+                                          rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, -1.0f, 0.0f)) *
+                                          scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
+                        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+                        glBindVertexArray(activeVAO2);
+                        // Draw geometry
+                        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+                        glDrawElements(GL_TRIANGLES, activeVertices2, GL_UNSIGNED_INT, 0);
+
+                        glBindVertexArray(0);
+                    }
+                    else {
+                        glActiveTexture(GL_TEXTURE1);
+                        glBindTexture(GL_TEXTURE_2D, yellowTextureID);
+                        glUniform1i(textureLocation, 1);
+                        tempworldmatrix = translate(mat4(1.0f), vec3(30.0f + row, height + 5.0f, i)) *
+                                          rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, -1.0f, 0.0f)) *
+                                          scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
+                        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+                        glBindVertexArray(activeVAO2);
+                        // Draw geometry
+                        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+                        glDrawElements(GL_TRIANGLES, activeVertices2, GL_UNSIGNED_INT, 0);
+
+                        glBindVertexArray(0);
+                    }
+
                 }
-
-
             }
+            else {
+                for (float i = -30; i < 40; i = i + 5) {
+                    if (i == -30 || i == -20 || i == -10 || i == 10 || i == 20 || i == 30) {
+                        glActiveTexture(GL_TEXTURE1);
+                        glBindTexture(GL_TEXTURE_2D, yellowTextureID);
+                        glUniform1i(textureLocation, 1);
+                        tempworldmatrix = translate(mat4(1.0f), vec3(-30.0f - row, height + 5.0f, i)) *
+                                          rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f)) *
+                                          scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
+                        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+                        glBindVertexArray(activeVAO2);
+                        // Draw geometry
+                        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+                        glDrawElements(GL_TRIANGLES, activeVertices2, GL_UNSIGNED_INT, 0);
 
+                        glBindVertexArray(0);
+                    }
+                    else {
+                        glActiveTexture(GL_TEXTURE1);
+                        glBindTexture(GL_TEXTURE_2D, yellowTextureID);
+                        glUniform1i(textureLocation, 1);
+                        tempworldmatrix = translate(mat4(1.0f), vec3(-30.0f - row, height+10.0f, i)) *
+                                          rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f)) *
+                                          scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
+                        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+                        glBindVertexArray(activeVAO2);
+                        // Draw geometry
+                        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+                        glDrawElements(GL_TRIANGLES, activeVertices2, GL_UNSIGNED_INT, 0);
 
-            for (float i = -30; i < 40; i = i + 10) {
-                if(i==-30||i==-10||i==10||i==30){
-                    glActiveTexture(GL_TEXTURE1);
-                    glBindTexture(GL_TEXTURE_2D, yellowTextureID);
-                    glUniform1i(textureLocation, 1);
-                    tempworldmatrix = translate(mat4(1.0f), vec3(30.0f, 5.0, i)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, -1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
-                    glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
-                    glBindVertexArray(activeVAO2);
-                    // Draw geometry
-                    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
-                    glDrawElements(GL_TRIANGLE_FAN, activeVertices2, GL_UNSIGNED_INT, 0);
-
-                    glBindVertexArray(0);
+                        glBindVertexArray(0);
+                    }
                 }
-                else{
-                    glActiveTexture(GL_TEXTURE1);
-                    glBindTexture(GL_TEXTURE_2D, yellowTextureID);
-                    glUniform1i(textureLocation, 1);
-                    tempworldmatrix = translate(mat4(1.0f), vec3(30.0f, 5.0f+5.0f, i)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, -1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
-                    glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
-                    glBindVertexArray(activeVAO2);
-                    // Draw geometry
-                    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
-                    glDrawElements(GL_TRIANGLE_FAN, activeVertices2, GL_UNSIGNED_INT, 0);
 
-                    glBindVertexArray(0);
+
+                for (float i = -30; i < 40; i = i + 5) {
+                    if (i == -30 || i == -20 || i == -10 || i == 10 || i == 20 || i == 30) {
+                        glActiveTexture(GL_TEXTURE1);
+                        glBindTexture(GL_TEXTURE_2D, yellowTextureID);
+                        glUniform1i(textureLocation, 1);
+                        tempworldmatrix = translate(mat4(1.0f), vec3(30.0f + row, height + 5.0f, i)) *
+                                          rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, -1.0f, 0.0f)) *
+                                          scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
+                        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+                        glBindVertexArray(activeVAO2);
+                        // Draw geometry
+                        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+                        glDrawElements(GL_TRIANGLES, activeVertices2, GL_UNSIGNED_INT, 0);
+
+                        glBindVertexArray(0);
+                    } else {
+                        glActiveTexture(GL_TEXTURE1);
+                        glBindTexture(GL_TEXTURE_2D, yellowTextureID);
+                        glUniform1i(textureLocation, 1);
+                        tempworldmatrix = translate(mat4(1.0f), vec3(30.0f + row, height+10.0f, i)) *
+                                          rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, -1.0f, 0.0f)) *
+                                          scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
+                        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+                        glBindVertexArray(activeVAO2);
+                        // Draw geometry
+                        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+                        glDrawElements(GL_TRIANGLES, activeVertices2, GL_UNSIGNED_INT, 0);
+
+                        glBindVertexArray(0);
+                    }
                 }
-
-
             }
         }
-        else{
-                for (float i = -30; i < 40; i = i + 10) {
-                    if(i==-30||i==-10||i==10||i==30){
-                        glActiveTexture(GL_TEXTURE1);
-                        glBindTexture(GL_TEXTURE_2D, yellowTextureID);
-                        glUniform1i(textureLocation, 1);
-                        tempworldmatrix = translate(mat4(1.0f), vec3(-30.0f, 5.0+5.0f, i)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f))* scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
-                        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
-                        glBindVertexArray(activeVAO2);
-                        // Draw geometry
-                        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
-                        glDrawElements(GL_LINES, activeVertices2, GL_UNSIGNED_INT, 0);
-
-                        glBindVertexArray(0);
-                    }
-                    else{
-                        glActiveTexture(GL_TEXTURE1);
-                        glBindTexture(GL_TEXTURE_2D, yellowTextureID);
-                        glUniform1i(textureLocation, 1);
-                        tempworldmatrix = translate(mat4(1.0f), vec3(-30.0f, 5.0, i)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f))* scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
-                        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
-                        glBindVertexArray(activeVAO2);
-                        // Draw geometry
-                        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
-                        glDrawElements(GL_LINES, activeVertices2, GL_UNSIGNED_INT, 0);
-
-                        glBindVertexArray(0);
-                    }
-
-
-                }
-
-
-                for (float i = -30; i < 40; i = i + 10) {
-                    if(i==-30||i==-10||i==10||i==30){
-                        glActiveTexture(GL_TEXTURE1);
-                        glBindTexture(GL_TEXTURE_2D, yellowTextureID);
-                        glUniform1i(textureLocation, 1);
-                        tempworldmatrix = translate(mat4(1.0f), vec3(30.0f, 5.0+5.0f, i)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, -1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
-                        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
-                        glBindVertexArray(activeVAO2);
-                        // Draw geometry
-                        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
-                        glDrawElements(GL_TRIANGLE_FAN, activeVertices2, GL_UNSIGNED_INT, 0);
-
-                        glBindVertexArray(0);
-                    }
-                    else{
-                        glActiveTexture(GL_TEXTURE1);
-                        glBindTexture(GL_TEXTURE_2D, yellowTextureID);
-                        glUniform1i(textureLocation, 1);
-                        tempworldmatrix = translate(mat4(1.0f), vec3(30.0f, 5.0f, i)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, -1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
-                        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
-                        glBindVertexArray(activeVAO2);
-                        // Draw geometry
-                        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
-                        glDrawElements(GL_TRIANGLE_FAN, activeVertices2, GL_UNSIGNED_INT, 0);
-
-                        glBindVertexArray(0);
-                    }
-
-
-                }
-
-        }
-
-
         ////////////
         //ball boy
         glActiveTexture(GL_TEXTURE1);
