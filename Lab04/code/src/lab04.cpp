@@ -1607,22 +1607,22 @@ int main(int argc, char* argv[]) {
     Tennis T3(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 3, 's');
     Tennis T4(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 4, 'f');
 
-    while(!gotUserInput){
-
-        std::cout << "Please choose whether you want single (1) or double (2) player mode: ";
-        std::cin >> playerMode;
-        if(playerMode==2){
-            isDouble = true;
-            T3.ChangeTennisPosition(translate(mat4(1.0f), vec3(-7.0f, 0.0f, 7.0f))) ;
-            T4.ChangeTennisPosition(translate(mat4(1.0f), vec3(7.0f, 0.0f, -7.0f)) *scale(mat4(1.0f), vec3(0.35f, 0.35f, 0.35f))) ;
-
-        }
-
-
-        std::cout << "You may now start your game!\n";
-        gotUserInput = true;
-
-    }
+//    while(!gotUserInput){
+//
+//        std::cout << "Please choose whether you want single (1) or double (2) player mode: ";
+//        std::cin >> playerMode;
+//        if(playerMode==2){
+//            isDouble = true;
+//            T3.ChangeTennisPosition(translate(mat4(1.0f), vec3(-7.0f, 0.0f, 7.0f))) ;
+//            T4.ChangeTennisPosition(translate(mat4(1.0f), vec3(7.0f, 0.0f, -7.0f)) *scale(mat4(1.0f), vec3(0.35f, 0.35f, 0.35f))) ;
+//
+//        }
+//
+//
+//        std::cout << "You may now start your game!\n";
+//        gotUserInput = true;
+//
+//    }
     while (!glfwWindowShouldClose(window)) {
 
 
