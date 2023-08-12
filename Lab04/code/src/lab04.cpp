@@ -517,7 +517,7 @@ void DrawGround(GLuint worldmatrix, GLuint colorLocation, int shader_id) {
                           * rotate(mat4(1.0f), radians(0.0f), vec3(1.0f, 0.0f, 0.0f)) *
                           scale(mat4(1.0f), vec3(300.0f, -2.0f, 300.0f));
         glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &gridWorldMatrix[0][0]);
-        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0f, 1.0f, 0.0f)));
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0f, 1.0f, 1.0f)));
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
 
@@ -1930,7 +1930,7 @@ int main(int argc, char* argv[]) {
     // Load Textures
     //
     GLuint whiteTextureID = loadTexture("../assets/textures/white.png");
-    GLuint clayTextureID = loadTexture("../assets/textures/clay.jpg");
+    GLuint clayTextureID = loadTexture("../assets/textures/asphalt.png");
     GLuint courtTextureID = loadTexture("../assets/textures/court.jpg");
     GLuint staduimTextureID = loadTexture("../assets/textures/staduim.jpg");
     GLuint glossyTextureID = loadTexture("../assets/textures/glossy.jpg");
@@ -1942,6 +1942,7 @@ int main(int argc, char* argv[]) {
     GLuint yellowTreeTextureID = loadTexture("../assets/textures/yellowTree.png");
     GLuint woodTextureID = loadTexture("../assets/textures/wood.jpg");
     GLuint yellowTextureID = loadTexture("../assets/textures/minion.png");
+    GLuint moonTextureID = loadTexture("../assets/textures/moon.png");
 
 
     GLuint racket1TextureID = loadTexture("../assets/textures/letter1.png");
@@ -2037,12 +2038,12 @@ int main(int argc, char* argv[]) {
     int istextureinuse = 0;
     int istextureinuse1 = 0;
     // We can set the shader once, since we have only one
-    //  glEnable(GL_CULL_FACE);
+    glDisable(GL_CULL_FACE);
     glUseProgram(texturedShaderProgram);
     glUseProgram(depthShaderProgram);
     glUseProgram(shaderProgram);
-
-
+    glEnable(GL_POLYGON_OFFSET_FILL);
+    GL_LEQUAL;
     glUseProgram(texturedShaderProgram);
 
     // We can set the shader once, since we have only one
@@ -2050,8 +2051,10 @@ int main(int argc, char* argv[]) {
     glUseProgram(shaderProgram);
     GLuint colorLocation = glGetUniformLocation(shaderProgram, "objectColor");
     // Camera parameters for view transform
-    vec3 cameraPosition(10.0f, 10.0f, 10.0f);
-    vec3 cameraLookAt(0.0f, 0.0f, -1.0f); // Set the look at position to the origin
+    //x = width
+    // z = length of court
+    vec3 cameraPosition(0.0f, 20.0f, 20.0f);
+    vec3 cameraLookAt(0.0f, 0.0f, 0.0f); // Set the look at position to the origin
     vec3 cameraUp(0.0f, 1.0f, 0.0f);
     vec3 lightPos(20.0f, 50.0f, 10.0f);
     GLuint lightLocation = glGetUniformLocation(shaderProgram, "lightPos");
@@ -2577,7 +2580,11 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        //// the chair on both side
+
+        // moon
+
+//        glUniform1f(glGetUniformLocation(shaderProgram, "opacity"), 1.0f);
+//        //// the chair on both side
 
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, whiteTextureID);
@@ -2628,6 +2635,8 @@ int main(int argc, char* argv[]) {
                     if (i == -30 || i == -20 || i == -10 || i == 0 || i == 10 || i == 20 || i == 30) {
                         glActiveTexture(GL_TEXTURE1);
                         glBindTexture(GL_TEXTURE_2D, yellowTextureID);
+
+
                         glUniform1i(textureLocation, 1);
                         tempworldmatrix = translate(mat4(1.0f), vec3(-30.0f - row, height + 5.0, i)) *
                                           rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f)) *
@@ -2792,21 +2801,21 @@ int main(int argc, char* argv[]) {
 
         /////////////////////////////// fences
         glBindTexture(GL_TEXTURE_2D, metalTextureID);
-        for (float i = -100; i < 100; i = i + 5) {
+        for (float i = -65; i < 65; i = i + 5) {
             glBindVertexArray(activeVAO6);
-            tempworldmatrix = translate(mat4(1.0f), vec3(65.0f, 0.0f, i)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.025f, 0.025f, 0.025f));
+            tempworldmatrix = translate(mat4(1.0f), vec3(55.0f, 0.0f, i)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.025f, 0.025f, 0.025f));
             glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
             glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
             glDrawElements(GL_LINES, activeVertices6, GL_UNSIGNED_INT, 0);
         }
-        for (float i = -100; i < 100; i = i + 5) {
+        for (float i = -65; i < 65; i = i + 5) {
             glBindVertexArray(activeVAO6);
-            tempworldmatrix = translate(mat4(1.0f), vec3(-65.0f, 0.0f, i)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, -1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.025f, 0.025f, 0.025f));
+            tempworldmatrix = translate(mat4(1.0f), vec3(-55.0f, 0.0f, i)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, -1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.025f, 0.025f, 0.025f));
             glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
             glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
             glDrawElements(GL_LINES, activeVertices6, GL_UNSIGNED_INT, 0);
         }
-        for (float i = -160; i < 160; i = i + 5) {
+        for (float i = -65; i < 65; i = i + 5) {
             glBindVertexArray(activeVAO6);
             tempworldmatrix = translate(mat4(1.0f), vec3(i, 0.0f, -55.0f)) * rotate(mat4(1.0f), radians(180.0f), vec3(0.0f, 1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.025f, 0.025f, 0.025f));
             glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
@@ -2814,7 +2823,7 @@ int main(int argc, char* argv[]) {
             glDrawElements(GL_LINES, activeVertices6, GL_UNSIGNED_INT, 0);
         }
 
-        for (float i = -160; i < 160; i = i + 5) {
+        for (float i = -65; i < 65; i = i + 5) {
             glBindVertexArray(activeVAO6);
             tempworldmatrix = translate(mat4(1.0f), vec3(i, 0.0f, 55.0f))  * scale(mat4(1.0f), vec3(0.025f, 0.025f, 0.025f));;
             glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
