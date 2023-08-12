@@ -2452,6 +2452,9 @@ int main(int argc, char* argv[]) {
 
         /////////////////////////////////////////////
 //// 3D modeling part
+
+
+
         /// this is the trees both side
 
         int ub = 20;
@@ -2586,26 +2589,68 @@ int main(int argc, char* argv[]) {
 //        glUniform1f(glGetUniformLocation(shaderProgram, "opacity"), 1.0f);
 //        //// the chair on both side
 
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, whiteTextureID);
-        glUniform1i(textureLocation, 1);
-        tempworldmatrix = translate(mat4(1.0f), vec3(-22.0f, 0.0f, 0.0f)) * rotate(mat4(1.0f), radians(180.0f), vec3(0.0f, 1.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 5.0f, 5.0f));
-        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
-        glBindVertexArray(activeVAO1);
-        // Draw geometry
-        glUniform3fv(colorLocation, 1, value_ptr(vec3(0.0, 1.0, 0.0)));
-        glDrawElements(GL_LINES, activeVertices1, GL_UNSIGNED_INT, 0);
+//        glActiveTexture(GL_TEXTURE1);
+//        glBindTexture(GL_TEXTURE_2D, whiteTextureID);
+//        glUniform1i(textureLocation, 1);
+//        tempworldmatrix = translate(mat4(1.0f), vec3(-22.0f, 0.0f, 0.0f)) * rotate(mat4(1.0f), radians(180.0f), vec3(0.0f, 1.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 5.0f, 5.0f));
+//        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+//        glBindVertexArray(activeVAO1);
+//        // Draw geometry
+//        glUniform3fv(colorLocation, 1, value_ptr(vec3(0.0, 1.0, 0.0)));
+//        glDrawElements(GL_LINES, activeVertices1, GL_UNSIGNED_INT, 0);
 
         glBindVertexArray(0);
+        glBindTexture(GL_TEXTURE_2D, woodTextureID);
         tempworldmatrix = translate(mat4(1.0f), vec3(22.0f, 0.0f, 0.0f)) * rotate(mat4(1.0f), radians(360.0f), vec3(0.0f, 1.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 5.0f, 5.0f));
         glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
         glBindVertexArray(activeVAO1);
         // Draw geometry
-        glUniform3fv(colorLocation, 1, value_ptr(vec3(0.0, 1.0, 0.0)));
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
         glDrawElements(GL_LINES, activeVertices1, GL_UNSIGNED_INT, 0);
 
 
         glBindVertexArray(0);
+
+
+        /// 4 projector of lights
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, metalTextureID);
+        glUniform1i(textureLocation, 1);
+
+
+        glBindVertexArray(activeVAO4);
+        // Draw geometry
+        tempworldmatrix = translate(mat4(1.0f), vec3(22.0f, 0.0f, 40.0))* scale(mat4(1.0f), vec3(10.05f,10.05f, 10.05f));;
+        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawElements(GL_TRIANGLE_STRIP, activeVertices4, GL_UNSIGNED_INT, 0);
+
+
+
+        // Draw geometry
+        tempworldmatrix = translate(mat4(1.0f), vec3(22.0f, 0.0f, -40.0)) * scale(mat4(1.0f), vec3(10.05f, 10.05f, 10.05f));;
+        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawElements(GL_TRIANGLE_STRIP, activeVertices4, GL_UNSIGNED_INT, 0);
+
+
+
+
+
+        // Draw geometry
+        tempworldmatrix = translate(mat4(1.0f), vec3(-22.0f, 0.0f, 40.0)) * scale(mat4(1.0f), vec3(10.05f, 10.05f, 10.05f));;
+        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawElements(GL_TRIANGLE_STRIP, activeVertices4, GL_UNSIGNED_INT, 0);
+
+
+
+        // Draw geometry
+        tempworldmatrix = translate(mat4(1.0f), vec3(-22.0f, 0.0f, -40.0)) * scale(mat4(1.0f), vec3(10.05f, 10.05f, 10.05f));;
+        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawElements(GL_TRIANGLE_STRIP, activeVertices4, GL_UNSIGNED_INT, 0);
+
 
 
         //////
