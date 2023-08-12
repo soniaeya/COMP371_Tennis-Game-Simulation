@@ -2172,7 +2172,7 @@ int main(int argc, char* argv[]) {
 //        gotUserInput = true;
 //
 //    }
-    float lightPower = 220.0f;
+    float lightPower = 250.0f;
     int ub = 20;
     int lb = 0;
     float random[3];
@@ -3112,13 +3112,13 @@ int main(int argc, char* argv[]) {
 
         //Light Flicker
         if(sec < 3||6<=sec<9||12<=sec<15||18<=sec<21) {
-            lightPower = lightPower+ std::cos(sec)*3.2f;
+            lightPower = lightPower+ std::cos(sec)*2.8f;
             GLuint lightLocation = glGetUniformLocation(texturedShaderProgram, "lightPower");
             glUniform1f(lightLocation, lightPower);
         }
         else{
 
-            lightPower = lightPower+ std::sin(sec)*3.2f;
+            lightPower = lightPower+ std::sin(sec)*2.8f;
             GLuint lightLocation = glGetUniformLocation(texturedShaderProgram, "lightPower");
             glUniform1f(lightLocation, lightPower);
 
