@@ -1967,6 +1967,10 @@ int main(int argc, char* argv[]) {
     string manPath = "../Assets/Models/man.obj";
     string boyPath = "../Assets/Models/ballboy.obj";
     string staduimPath = "../Assets/Models/man.obj";
+    string lightPath = "../Assets/Models/lights.obj";
+    string cloudPath = "../Assets/Models/cloud1.obj";
+    string fencePath = "../Assets/Models/fence.obj";
+    string moonPath = "../Assets/Models/moon.obj";
 #endif
     // Background Color
 
@@ -1999,6 +2003,29 @@ int main(int argc, char* argv[]) {
 
     int activeVertices3 = boyVertices;
     GLuint activeVAO3 = boyVAO;
+    int lightVertices;
+    GLuint lightVAO = setupModelEBO(lightPath, lightVertices);
+
+    int activeVertices4 = lightVertices;
+    GLuint activeVAO4 = lightVAO;
+    int cloudVertices;
+    GLuint cloudVAO = setupModelEBO(cloudPath, cloudVertices);
+
+    activeVertices5 = cloudVertices;
+    activeVAO5 = cloudVAO;
+    int fenceVertices;
+    GLuint fenceVAO = setupModelEBO(fencePath, fenceVertices);
+
+    int activeVertices6 = fenceVertices;
+    GLuint activeVAO6 = fenceVAO;
+
+
+    int moonVertices;
+    GLuint moonVAO = setupModelEBO(moonPath, moonVertices);
+
+    int activeVertices7 = moonVertices;
+    GLuint activeVAO7 = moonVAO;
+
 
 
     int shaderProgram = compileAndLinkShaders();
@@ -2427,12 +2454,12 @@ int main(int argc, char* argv[]) {
         int ub = 20;
         int lb = 0;
 
-// For the first value to be between 0 and 0.3
+        // For the first value to be between 0 and 0.3
 
-// For the other values between lb and ub
+        // For the other values between lb and ub
 
 
-        for (int row = 0; row < 20; row +=5) {
+        for (int row = 20; row < 40; row += 5) {
 
 
             for (int i = -70; i < 70; i = i + 5) {
@@ -2445,41 +2472,41 @@ int main(int argc, char* argv[]) {
 
                 glActiveTexture(GL_TEXTURE1);
 
-                if(i%2 == 0){
+                if (i % 2 == 0) {
 
                     glBindTexture(GL_TEXTURE_2D, yellowTreeTextureID);
                 }
-                else if (i%3 == 0){
+                else if (i % 3 == 0) {
                     glBindTexture(GL_TEXTURE_2D, orangeTextureID);
                 }
-                else{
+                else {
                     glBindTexture(GL_TEXTURE_2D, treeTextureID);
                 }
 
 
                 glUniform1i(textureLocation, 1);
 
-                if(row == 0){
+                if (row == 0) {
                     tempworldmatrix =
-                            translate(mat4(1.0f), vec3(i, 0.0f, -50.0f-row)) * scale(mat4(1.0f), vec3(0.3f, result+0.4f, 0.3f));;
+                            translate(mat4(1.0f), vec3(i, 0.0f, -50.0f - row)) * scale(mat4(1.0f), vec3(0.3f, result + 0.4f, 0.3f));;
                     glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
 
                 }
-                else if (row == 5){
+                else if (row == 5) {
                     tempworldmatrix =
-                            translate(mat4(1.0f), vec3(i+4.0f, 0.0f, -50.0f-row+3.0f)) * scale(mat4(1.0f), vec3(0.3f, result+0.1f, 0.3f));;
+                            translate(mat4(1.0f), vec3(i + 4.0f, 0.0f, -50.0f - row + 3.0f)) * scale(mat4(1.0f), vec3(0.3f, result + 0.1f, 0.3f));;
                     glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
 
                 }
-                else if (row == 10){
+                else if (row == 10) {
                     tempworldmatrix =
-                            translate(mat4(1.0f), vec3(i+2.0f, 0.0f, -50.0f-row+2.0f)) * scale(mat4(1.0f), vec3(0.3f, result+0.1f, 0.3f));;
+                            translate(mat4(1.0f), vec3(i + 2.0f, 0.0f, -50.0f - row + 2.0f)) * scale(mat4(1.0f), vec3(0.3f, result + 0.1f, 0.3f));;
                     glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
 
                 }
-                else{
+                else {
                     tempworldmatrix =
-                            translate(mat4(1.0f), vec3(i+3.0f, 0.0f, -50.0f-row+1.0f)) * scale(mat4(1.0f), vec3(0.3f, result+0.2f, 0.3f));;
+                            translate(mat4(1.0f), vec3(i + 3.0f, 0.0f, -50.0f - row + 1.0f)) * scale(mat4(1.0f), vec3(0.3f, result + 0.2f, 0.3f));;
                     glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
 
                 }
@@ -2502,41 +2529,41 @@ int main(int argc, char* argv[]) {
 
                 glActiveTexture(GL_TEXTURE1);
 
-                if(i%2 == 0){
+                if (i % 2 == 0) {
 
                     glBindTexture(GL_TEXTURE_2D, yellowTreeTextureID);
                 }
-                else if (i%3 == 0){
+                else if (i % 3 == 0) {
                     glBindTexture(GL_TEXTURE_2D, orangeTextureID);
                 }
-                else{
+                else {
                     glBindTexture(GL_TEXTURE_2D, treeTextureID);
                 }
 
 
                 glUniform1i(textureLocation, 1);
 
-                if(row == 0){
+                if (row == 0) {
                     tempworldmatrix =
-                            translate(mat4(1.0f), vec3(i, 0.0f, 50.0f+row)) * scale(mat4(1.0f), vec3(0.3f, result+0.4f, 0.3f));;
+                            translate(mat4(1.0f), vec3(i, 0.0f, 50.0f + row)) * scale(mat4(1.0f), vec3(0.3f, result + 0.4f, 0.3f));;
                     glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
 
                 }
-                else if (row == 5){
+                else if (row == 5) {
                     tempworldmatrix =
-                            translate(mat4(1.0f), vec3(i+4.0f, 0.0f, 50.0f+row+3.0f)) * scale(mat4(1.0f), vec3(0.3f, result+0.1f, 0.3f));;
+                            translate(mat4(1.0f), vec3(i + 4.0f, 0.0f, 50.0f + row + 3.0f)) * scale(mat4(1.0f), vec3(0.3f, result + 0.1f, 0.3f));;
                     glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
 
                 }
-                else if (row == 10){
+                else if (row == 10) {
                     tempworldmatrix =
-                            translate(mat4(1.0f), vec3(i+2.0f, 0.0f, 50.0f+row+2.0f)) * scale(mat4(1.0f), vec3(0.3f, result+0.1f, 0.3f));;
+                            translate(mat4(1.0f), vec3(i + 2.0f, 0.0f, 50.0f + row + 2.0f)) * scale(mat4(1.0f), vec3(0.3f, result + 0.1f, 0.3f));;
                     glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
 
                 }
-                else{
+                else {
                     tempworldmatrix =
-                            translate(mat4(1.0f), vec3(i+3.0f, 0.0f, 50.0f+row+1.0f)) * scale(mat4(1.0f), vec3(0.3f, result+0.2f, 0.3f));;
+                            translate(mat4(1.0f), vec3(i + 3.0f, 0.0f, 50.0f + row + 1.0f)) * scale(mat4(1.0f), vec3(0.3f, result + 0.2f, 0.3f));;
                     glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
 
                 }
@@ -2762,6 +2789,38 @@ int main(int argc, char* argv[]) {
         glDrawElements(GL_TRIANGLES, activeVertices2, GL_UNSIGNED_INT, 0);
 
         glBindVertexArray(0);
+
+        /////////////////////////////// fences
+        glBindTexture(GL_TEXTURE_2D, metalTextureID);
+        for (float i = -100; i < 100; i = i + 5) {
+            glBindVertexArray(activeVAO6);
+            tempworldmatrix = translate(mat4(1.0f), vec3(65.0f, 0.0f, i)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.025f, 0.025f, 0.025f));
+            glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+            glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+            glDrawElements(GL_LINES, activeVertices6, GL_UNSIGNED_INT, 0);
+        }
+        for (float i = -100; i < 100; i = i + 5) {
+            glBindVertexArray(activeVAO6);
+            tempworldmatrix = translate(mat4(1.0f), vec3(-65.0f, 0.0f, i)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, -1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.025f, 0.025f, 0.025f));
+            glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+            glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+            glDrawElements(GL_LINES, activeVertices6, GL_UNSIGNED_INT, 0);
+        }
+        for (float i = -160; i < 160; i = i + 5) {
+            glBindVertexArray(activeVAO6);
+            tempworldmatrix = translate(mat4(1.0f), vec3(i, 0.0f, -55.0f)) * rotate(mat4(1.0f), radians(180.0f), vec3(0.0f, 1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.025f, 0.025f, 0.025f));
+            glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+            glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+            glDrawElements(GL_LINES, activeVertices6, GL_UNSIGNED_INT, 0);
+        }
+
+        for (float i = -160; i < 160; i = i + 5) {
+            glBindVertexArray(activeVAO6);
+            tempworldmatrix = translate(mat4(1.0f), vec3(i, 0.0f, 55.0f))  * scale(mat4(1.0f), vec3(0.025f, 0.025f, 0.025f));;
+            glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+            glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+            glDrawElements(GL_LINES, activeVertices6, GL_UNSIGNED_INT, 0);
+        }
 
 
 //        glActiveTexture(GL_TEXTURE1);
