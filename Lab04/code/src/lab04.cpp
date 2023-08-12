@@ -2409,8 +2409,13 @@ int main(int argc, char* argv[]) {
 //// 3D modeling part
         /// this is the treess both side
 
-
-        for (float i = -60; i < 60; i=i+10) {
+//        int ub = 20;
+//        int lb = -20;
+//        int random[3];
+//        for (int i = 0; i < 3; i++) {
+//            random[i] = (rand() % (ub - lb + 1)) + lb;
+//        }
+        for (float i = -60; i < 60; i=i+5) {
             glActiveTexture(GL_TEXTURE1);
             glBindTexture(GL_TEXTURE_2D, treeTextureID);
             glUniform1i(textureLocation, 1);
