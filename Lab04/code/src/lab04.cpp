@@ -48,7 +48,7 @@ const char* getVertexShaderSource();
 
 const char* getFragmentShaderSource();
 
-void DrawGrid(GLuint worldmatrix, GLuint colorLocation, int shader_id);
+void DrawGround(GLuint worldmatrix, GLuint colorLocation, int shader_id);
 
 void DrawCoordinates(GLuint worldmatrix, GLuint colorLocation, float worldXAngle, float worldYAngle);
 
@@ -508,13 +508,13 @@ int compileAndLinkDepthShaders(const char* vertexShaderSource, const char* fragm
     return shaderProgram;
 }
 
-void DrawGrid(GLuint worldmatrix, GLuint colorLocation, int shader_id) {
+void DrawGround(GLuint worldmatrix, GLuint colorLocation, int shader_id) {
     glGetUniformLocation(shader_id, "objectColor");
     mat4 gridWorldMatrix;
 
         gridWorldMatrix = translate(mat4(1.0f), vec3(0.0f, -5.0f, 0.0f))
                           * rotate(mat4(1.0f), radians(0.0f), vec3(1.0f, 0.0f, 0.0f)) *
-                          scale(mat4(1.0f), vec3(100.0f, -2.0f, 100.0f));
+                          scale(mat4(1.0f), vec3(200.0f, -2.0f, 200.0f));
         glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &gridWorldMatrix[0][0]);
         glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0f, 1.0f, 0.0f)));
         glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -1290,7 +1290,29 @@ private:
     int ID;
 };
 
+void setGradientColor() {
+    // Get the current time in seconds
+    float timeValue = glfwGetTime();
+    float value = std::sin(timeValue) * 0.5f + 0.5f; // Sine function oscillates between -1 and 1, so normalize it to [0, 1]
 
+    // Navy blue components
+    float navyRed = 0.0f;
+    float navyGreen = 0.0f;
+    float navyBlue = 0.5f;
+
+    // Orange components
+    float orangeRed = 1.0f;
+    float orangeGreen = 0.5f;
+    float orangeBlue = 0.0f;
+
+    // Interpolate between navy blue and orange based on the value
+    float red = (1.0f - value) * navyRed + value * orangeRed;
+    float green = (1.0f - value) * navyGreen + value * orangeGreen;
+    float blue = (1.0f - value) * navyBlue + value * orangeBlue;
+
+    // Set the clear color
+    glClearColor(red, green, blue, 1.0f);
+}
 class Tennis
 {
 #include <glm/gtc/matrix_transform.hpp>
@@ -1939,7 +1961,8 @@ int main(int argc, char* argv[]) {
     string staduimPath = "../Assets/Models/man.obj";
 #endif
     // Background Color
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+
     int heraclesVertices;
     GLuint heraclesVAO = setupModelEBO(heraclesPath, heraclesVertices);
 
@@ -2142,8 +2165,8 @@ int main(int argc, char* argv[]) {
 //
 //    }
     float lightPower = 200.0f;
-    while (!glfwWindowShouldClose(window)) {
 
+    while (!glfwWindowShouldClose(window)) {
 
         // Frame time calculation
         float dt = glfwGetTime() - previousFrameTime;
@@ -2220,6 +2243,7 @@ int main(int argc, char* argv[]) {
         ///// second passs
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        setGradientColor();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(texturedShaderProgram);
 
@@ -2294,7 +2318,7 @@ int main(int argc, char* argv[]) {
         glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
 
 
-        //DrawGrid
+        //DrawGround
 
         glBindVertexArray(texturedCubeVAO);
         glUseProgram(texturedShaderProgram);
@@ -2307,7 +2331,7 @@ int main(int argc, char* argv[]) {
         mat4 tempworldmatrix = mat4(1.0f);
         glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
 
-        DrawGrid(worldLocationMatrix, colorLocation, texturedShaderProgram);
+        DrawGround(worldLocationMatrix, colorLocation, texturedShaderProgram);
         DrawCoordinates(worldLocationMatrix, colorLocation, worldXAngle, worldYAngle);
 
         glBindVertexArray(texturedCubeVAO);
@@ -2373,13 +2397,13 @@ int main(int argc, char* argv[]) {
         MidSectionCreation(worldLocationMatrix, colorLocation);
         glUseProgram(texturedShaderProgram);
         //draw sky
-        glBindTexture(GL_TEXTURE_2D, greenTextureID);
-        glBindVertexArray(texturedCubeVAO);
-        groundWorldMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(100.0f, 100.0f, 100.0f));
-
-        glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundWorldMatrix[0][0]);
-        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
-        glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+//        glBindTexture(GL_TEXTURE_2D, greenTextureID);
+//        glBindVertexArray(texturedCubeVAO);
+//        groundWorldMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(100.0f, 100.0f, 100.0f));
+//
+//        glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundWorldMatrix[0][0]);
+//        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+//        glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
 
         /////////////////////////////////////////////
 //// 3D modeling part
@@ -2953,17 +2977,21 @@ int main(int argc, char* argv[]) {
 
         // Before rendering, update the light properties in the shader
 
+        //Light Flicker
         if(sec < 3||6<=sec<9||12<=sec<15||18<=sec<21) {
-            lightPower = lightPower+ std::sin(sec);
-            GLuint lightLocation = glGetUniformLocation(texturedShaderProgram, "lightPower");
-            glUniform1f(lightLocation, lightPower);
-        }
-        else{
             lightPower = lightPower+ std::cos(sec);
             GLuint lightLocation = glGetUniformLocation(texturedShaderProgram, "lightPower");
             glUniform1f(lightLocation, lightPower);
         }
-        glUseProgram(0);
+        else{
+
+            lightPower = lightPower+ std::sin(sec);
+            GLuint lightLocation = glGetUniformLocation(texturedShaderProgram, "lightPower");
+            glUniform1f(lightLocation, lightPower);
+
+
+        }
+glUseProgram(0);
         glUseProgram(shaderProgram);
         GLuint viewMatrixLocation_m = glGetUniformLocation(shaderProgram, "viewMatrix");
         glUniformMatrix4fv(viewMatrixLocation_m, 1, GL_FALSE, &viewMatrix[0][0]);
