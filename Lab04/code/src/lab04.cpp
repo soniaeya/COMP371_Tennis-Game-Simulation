@@ -1923,7 +1923,17 @@ private:
     int texturedshader;
     int ID;
 };
+bool detectGround(glm::vec3 &ballPos, glm::vec3 groundHeight, glm::vec3 groundNormal)
+{
+    return glm::dot(groundNormal, (ballPos - groundHeight)) < 1.0f; // radius
+    return false;
+}
 
+void updateBallPos(glm::vec3 &ballpos, glm::vec3& ballvel, glm::vec3& ballacc, float dt)
+{
+    ballvel = ballvel + ballacc * dt;
+    ballpos = ballpos + ballvel * dt;
+}
 
 int main(int argc, char* argv[]) {
     if (!initContext()) return -1;
@@ -2116,8 +2126,20 @@ int main(int argc, char* argv[]) {
     Tennis T1(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 1, 'p');
     Tennis T2(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 2, 'y');
 
-    T1.ChangeTennisPosition(translate(mat4(1.0f), vec3(7.0f, 0.0f, 7.0f)));
-    T2.ChangeTennisPosition(translate(mat4(1.0f), vec3(-7.0f, 0.0f, -7.0f)) * scale(mat4(1.0f), vec3(0.35f, 0.35f, 0.35f)));
+//    T1.ChangeTennisPosition(translate(mat4(1.0f), vec3(7.0f, 0.0f, 7.0f)));
+//    T2.ChangeTennisPosition(translate(mat4(1.0f), vec3(-7.0f, 0.0f, -7.0f)) * scale(mat4(1.0f), vec3(0.35f, 0.35f, 0.35f)));
+
+    glm::vec3 T1Pos(0.0f, 0.0f, 20.0f);
+    glm::vec3 T2Pos(0.0f, 0.0f, -20.0f);
+
+    glm::vec3 b1Pos(0.0f, 20.0f, 20.0f);
+    glm::vec3 b1Vel(0.0f, 0.0f, 0.0f);
+    glm::vec3 b1Acc(0.0f, -9.81f, 0.0f); // this must remain constant
+    float bounceCoefficient = 0.9f;
+
+    //T1.ChangeTennisPosition(translate(mat4(1.0f), vec3(0.0f, 0.0f, 3.0f)));
+    T1.ChangeTennisPosition(translate(mat4(1.0f), T1Pos)); // position
+    T2.ChangeTennisPosition(translate(mat4(1.0f), T2Pos)* scale(mat4(1.0f), vec3(0.35f, 0.35f, 0.35f))); // position
 
 
     Tennis* TCurrent = new Tennis();
@@ -2226,6 +2248,7 @@ int main(int argc, char* argv[]) {
 
         previousFrameTime += dt;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        updateBallPos(b1Pos, b1Vel, b1Acc, dt); // update ball pos
 
         /// first pass
         glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
@@ -2321,6 +2344,8 @@ int main(int argc, char* argv[]) {
 
         T1.changeShader(texturedShaderProgram);
         //T1.Draw(metalTextureID, metalTextureID, racket1TextureID);
+
+
         one.DrawScoreBoard();
         one.DrawPlayerScore(Score1);
         Two.DrawPlayerScore(Score2);
@@ -2329,7 +2354,20 @@ int main(int argc, char* argv[]) {
         T2.changeShader(texturedShaderProgram);
         T2.Draw(metalTextureID, metalTextureID, racket2TextureID);
 
-
+        if (detectGround(b1Pos, glm::vec3(0.0f, -0.01f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)))
+        {
+            b1Vel = glm::vec3(0.0f, bounceCoefficient * 10.0f, 0.0f);
+            if (bounceCoefficient > 0.0f)
+            {
+                bounceCoefficient -= 0.1f;
+            }
+            else
+            {
+                b1Pos = b1Pos * glm::vec3(1.0f, 0.0f, 1.0f);
+                b1Pos = b1Pos + glm::vec3(0.0f, 1.0f, 0.0f);
+                bounceCoefficient = 0.0f;
+            }
+        }
         if(isDouble){
             T3.changeShader(texturedShaderProgram);
             T3.Draw(metalTextureID, metalTextureID, racket3TextureID);
@@ -2411,6 +2449,7 @@ int main(int argc, char* argv[]) {
 
 
         glBindVertexArray(texturedCubeVAO);
+
         glBindTexture(GL_TEXTURE_2D, whiteTextureID);
 
         T1.changeShader(texturedShaderProgram);
