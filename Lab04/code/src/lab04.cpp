@@ -1942,7 +1942,8 @@ int main(int argc, char* argv[]) {
     GLuint yellowTreeTextureID = loadTexture("../assets/textures/yellowTree.png");
     GLuint woodTextureID = loadTexture("../assets/textures/wood.jpg");
     GLuint yellowTextureID = loadTexture("../assets/textures/minion.png");
-    GLuint moonTextureID = loadTexture("../assets/textures/moon.png");
+    GLuint sunTextureID = loadTexture("../assets/textures/sun.png");
+    GLuint moonTextureID = loadTexture("../assets/textures/electric.png");
 
 
     GLuint racket1TextureID = loadTexture("../assets/textures/letter1.png");
@@ -2603,7 +2604,7 @@ int main(int argc, char* argv[]) {
 
 
         //sun
-        glBindTexture(GL_TEXTURE_2D, moonTextureID);
+        glBindTexture(GL_TEXTURE_2D, sunTextureID);
         glBindVertexArray(sphereVAO);
         SphereWorldMatrix = translate(mat4(1.0f), vec3(75.0f, sunHeight, -75.0f))*scale(mat4(1.0f), vec3(6.0f, 6.0f, 6.0f));
         glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &SphereWorldMatrix[0][0]);
