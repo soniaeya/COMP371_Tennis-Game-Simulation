@@ -2179,7 +2179,7 @@ int main(int argc, char* argv[]) {
     Tennis T3(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 3, 's');
     Tennis T4(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 4, 'f');
 
-
+    const double PI = 3.14159265358979323846;
 
 
     //glUniform1i(textureLocation, 1);
@@ -2206,6 +2206,8 @@ int main(int argc, char* argv[]) {
     int ub = 20;
     int lb = 0;
     float random[3];
+    float moonHeight;
+    float sunHeight;
 // Global variable to store the random value
 
 
@@ -2340,6 +2342,10 @@ int main(int argc, char* argv[]) {
         glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &SphereWorldMatrix[0][0]);
         glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
         glDrawElements(GL_TRIANGLE_STRIP, b1.indexCount, GL_UNSIGNED_INT, 0);
+
+
+
+
 
         // Set light and material properties here, before drawing the mesh
         // You might set these once per frame, or even multiple times per frame if your light or material properties change
@@ -2585,6 +2591,24 @@ int main(int argc, char* argv[]) {
 
 
         // moon
+        glBindTexture(GL_TEXTURE_2D, moonTextureID);
+        glBindVertexArray(activeVAO7);
+
+//        float moonHeight = 30*std::cos(glfwGetTime())+30;
+
+        tempworldmatrix = translate(mat4(1.0f), vec3(-75.0f, moonHeight, -75.0f)) * rotate(mat4(1.0f), radians(20.0f), vec3(1.0f, 0.0f, 1.0f)) * scale(mat4(1.0f), vec3(5.5f, 5.5f, 5.5f));;
+        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawElements(GL_LINES, activeVertices, GL_UNSIGNED_INT, 0);
+
+
+        //sun
+        glBindTexture(GL_TEXTURE_2D, moonTextureID);
+        glBindVertexArray(sphereVAO);
+        SphereWorldMatrix = translate(mat4(1.0f), vec3(75.0f, sunHeight, -75.0f))*scale(mat4(1.0f), vec3(6.0f, 6.0f, 6.0f));
+        glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &SphereWorldMatrix[0][0]);
+        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        glDrawElements(GL_TRIANGLE_STRIP, b1.indexCount, GL_UNSIGNED_INT, 0);
 
 //        glUniform1f(glGetUniformLocation(shaderProgram, "opacity"), 1.0f);
 //        //// the chair on both side
@@ -3222,18 +3246,22 @@ int main(int argc, char* argv[]) {
         // ... (Initialize your shaders and objects here)
 
         // Before rendering, update the light properties in the shader
-
+        moonHeight = 25*std::cos(glfwGetTime()+0.5)+25;
+        sunHeight = -25*std::cos(glfwGetTime()+0.5)+25;
         //Light Flicker
         if(sec < 3||6<=sec<9||12<=sec<15||18<=sec<21) {
             lightPower = lightPower+ std::cos(sec)*2.8f;
             GLuint lightLocation = glGetUniformLocation(texturedShaderProgram, "lightPower");
             glUniform1f(lightLocation, lightPower);
+
+
         }
         else{
 
             lightPower = lightPower+ std::sin(sec)*2.8f;
             GLuint lightLocation = glGetUniformLocation(texturedShaderProgram, "lightPower");
             glUniform1f(lightLocation, lightPower);
+
 
 
         }
