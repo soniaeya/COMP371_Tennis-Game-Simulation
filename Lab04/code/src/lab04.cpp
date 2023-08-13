@@ -523,6 +523,308 @@ void DrawGround(GLuint worldmatrix, GLuint colorLocation, int shader_id) {
 
 }
 
+void DrawBleachers(GLuint worldLocationMatrix,int texturedCubeVAO, GLuint colorLocation, int shader_id,GLuint bleachersTextureID) {
+    mat4 groundTennisMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(36.0f, 0.02f, 78.0f));
+    //DrawBleachers
+    //first row
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(30.0f, 7.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-30.0f, 7.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    //second row
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(35.0f, 12.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-35.0f, 12.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    //third row
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(40.0f, 17.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-40.0f, 17.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    //fourth row
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(45.0f, 22.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-45.0f, 22.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    //three front support pillars
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(30.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 13.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-30.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 13.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(30.0f, 0.0f, 40.0f)) * scale(mat4(1.0f), vec3(2.0f, 13.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-30.0f, 0.0f, 40.0f)) * scale(mat4(1.0f), vec3(2.0f, 13.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(30.0f, 0.0f, -40.0f)) * scale(mat4(1.0f), vec3(2.0f, 13.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-30.0f, 0.0f, -40.0f)) * scale(mat4(1.0f), vec3(2.0f, 13.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    //three second row support pillars
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(36.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 23.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-36.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 23.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(36.0f, 0.0f, 40.0f)) * scale(mat4(1.0f), vec3(2.0f, 23.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-36.0f, 0.0f, 40.0f)) * scale(mat4(1.0f), vec3(2.0f, 23.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(36.0f, 0.0f, -40.0f)) * scale(mat4(1.0f), vec3(2.0f, 23.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-36.0f, 0.0f, -40.0f)) * scale(mat4(1.0f), vec3(2.0f, 23.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    //three third row support pillars
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(42.5f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 34.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-42.5f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 34.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(42.5f, 0.0f, 40.0f)) * scale(mat4(1.0f), vec3(2.0f, 34.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-42.5f, 0.0f, 40.0f)) * scale(mat4(1.0f), vec3(2.0f, 34.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(42.5f, 0.0f, -40.0f)) * scale(mat4(1.0f), vec3(2.0f, 34.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-42.5f, 0.0f, -40.0f)) * scale(mat4(1.0f), vec3(2.0f, 34.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+
+    //three fourth row support pillars
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(47.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 46.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-47.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 46.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(47.0f, 0.0f, 40.0f)) * scale(mat4(1.0f), vec3(2.0f, 46.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-47.0f, 0.0f, 40.0f)) * scale(mat4(1.0f), vec3(2.0f, 46.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(47.0f, 0.0f, -40.0f)) * scale(mat4(1.0f), vec3(2.0f, 46.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-47.0f, 0.0f, -40.0f)) * scale(mat4(1.0f), vec3(2.0f, 46.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    //three ground level connecting pillars
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(38.5f, -3.0f, 0.0f)) * scale(mat4(1.0f), vec3(17.0f, 2.0f, 2.05f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-38.5f, -3.0f, 0.0f)) * scale(mat4(1.0f), vec3(17.0f, 2.0f, 2.05f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(38.5f, -3.0f, 40.0f)) * scale(mat4(1.0f), vec3(17.0f, 2.0f, 2.05f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-38.5f, -3.0f, 40.0f)) * scale(mat4(1.0f), vec3(17.0f, 2.0f, 2.05f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(38.5f, -3.0f, -40.0f)) * scale(mat4(1.0f), vec3(17.0f, 2.0f, 2.05f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-38.5f, -3.0f, -40.0f)) * scale(mat4(1.0f), vec3(17.0f, 2.0f, 2.05f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+
+    //bar connecting the front
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-30.0f, 0.0f, 1.0f)) * scale(mat4(1.0f), vec3(1.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(30.0f, 0.0f, 1.0f)) * scale(mat4(1.0f), vec3(1.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+
+    //crossbar supports in the back
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-44.0f, 11.0f, -20.0f)) * rotate(mat4(1.0f), radians(-30.0f), vec3(1.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(1.0f, 1.0f, 40.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(44.0f, 11.0f, -20.0f)) * rotate(mat4(1.0f), radians(-30.0f), vec3(1.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(1.0f, 1.0f, 40.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-44.0f, 11.0f, 20.0f)) * rotate(mat4(1.0f), radians(30.0f), vec3(1.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(1.0f, 1.0f, 40.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(44.0f, 11.0f, 20.0f)) * rotate(mat4(1.0f), radians(30.0f), vec3(1.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(1.0f, 1.0f, 40.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+}
+
 void DrawCoordinates(GLuint worldmatrix, GLuint colorLocation, float worldXAngle, float worldYAngle) {
     // Draw X axis, colored red
     mat4 xAxis = rotate(mat4(1.0), radians(worldXAngle), vec3(1.0f, 0.0f, 0.0f)) *
@@ -1939,8 +2241,9 @@ int main(int argc, char* argv[]) {
     if (!initContext()) return -1;
     // Load Textures
     //
+
     GLuint whiteTextureID = loadTexture("../assets/textures/white.png");
-    GLuint clayTextureID = loadTexture("../assets/textures/asphalt.png");
+    GLuint clayTextureID = loadTexture("../assets/textures/clay.jpg");
     GLuint courtTextureID = loadTexture("../assets/textures/court.jpg");
     GLuint staduimTextureID = loadTexture("../assets/textures/staduim.jpg");
     GLuint glossyTextureID = loadTexture("../assets/textures/glossy.jpg");
@@ -1964,7 +2267,7 @@ int main(int argc, char* argv[]) {
     GLuint num2ID = loadTexture("../assets/textures/letter4.png");
     GLuint grassID = loadTexture("../assets/textures/grass.png");
 
-
+    GLuint bleachersTextureID =  metalTextureID;
 
 
     // Setup models
@@ -2333,6 +2636,16 @@ int main(int argc, char* argv[]) {
 
 
 
+
+
+        T1.changeShader(texturedShaderProgram);
+        //T1.Draw(metalTextureID, metalTextureID, racket1TextureID);
+        DrawBleachers(worldLocationMatrix,texturedCubeVAO, colorLocation, texturedShaderProgram, bleachersTextureID);
+
+        one.DrawScoreBoard();
+
+
+
         if ( IKey && glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
             Score1++;
             Score2++;
@@ -2342,11 +2655,23 @@ int main(int argc, char* argv[]) {
             IKey = 1;
         }
 
-        T1.changeShader(texturedShaderProgram);
-        //T1.Draw(metalTextureID, metalTextureID, racket1TextureID);
+        if (detectGround(b1Pos, glm::vec3(0.0f, -0.01f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)))
+        {
+            b1Vel = glm::vec3(0.0f, bounceCoefficient * 10.0f, 0.0f);
+            if (bounceCoefficient > 0.0f)
+            {
+                Score1+=1;
+                bounceCoefficient -= 0.1f;
+            }
+            else
+            {
+                Score2++;
+                b1Pos = b1Pos * glm::vec3(1.0f, 0.0f, 1.0f);
+                b1Pos = b1Pos + glm::vec3(0.0f, 1.0f, 0.0f);
+                bounceCoefficient = 0.0f;
+            }
 
-
-        one.DrawScoreBoard();
+        }
         one.DrawPlayerScore(Score1);
         Two.DrawPlayerScore(Score2);
         T1.changeShader(texturedShaderProgram);
@@ -2354,20 +2679,7 @@ int main(int argc, char* argv[]) {
         T2.changeShader(texturedShaderProgram);
         T2.Draw(metalTextureID, metalTextureID, racket2TextureID);
 
-        if (detectGround(b1Pos, glm::vec3(0.0f, -0.01f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)))
-        {
-            b1Vel = glm::vec3(0.0f, bounceCoefficient * 10.0f, 0.0f);
-            if (bounceCoefficient > 0.0f)
-            {
-                bounceCoefficient -= 0.1f;
-            }
-            else
-            {
-                b1Pos = b1Pos * glm::vec3(1.0f, 0.0f, 1.0f);
-                b1Pos = b1Pos + glm::vec3(0.0f, 1.0f, 0.0f);
-                bounceCoefficient = 0.0f;
-            }
-        }
+
         if(isDouble){
             T3.changeShader(texturedShaderProgram);
             T3.Draw(metalTextureID, metalTextureID, racket3TextureID);
