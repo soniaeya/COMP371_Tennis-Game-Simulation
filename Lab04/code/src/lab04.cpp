@@ -2257,13 +2257,10 @@ int main(int argc, char* argv[]) {
     GLuint yellowTextureID = loadTexture("../assets/textures/minion.png");
     GLuint sunTextureID = loadTexture("../assets/textures/sun.png");
     GLuint moonTextureID = loadTexture("../assets/textures/electric.png");
-
-
     GLuint racket1TextureID = loadTexture("../assets/textures/letter1.png");
     GLuint racket2TextureID = loadTexture("../assets/textures/letter2.jpg");
     GLuint racket3TextureID = loadTexture("../assets/textures/letter4.jpg");
     GLuint skinTextureID = loadTexture("../assets/textures/skin.png");
-
     GLuint num2ID = loadTexture("../assets/textures/letter4.png");
     GLuint grassID = loadTexture("../assets/textures/grass.png");
 
@@ -2581,7 +2578,7 @@ int main(int argc, char* argv[]) {
         glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
 
         glBindVertexArray(sphereVAO);
-        mat4 SphereWorldMatrix = translate(mat4(1.0f), vec3(0.0f, 8.0f, 6.0f));
+        mat4 SphereWorldMatrix = translate(mat4(1.0f), b1Pos);
         glUniformMatrix4fv(depthWorldMatrixLocation, 1, GL_FALSE, &SphereWorldMatrix[0][0]);
         glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
         glDrawElements(GL_TRIANGLE_STRIP, b1.indexCount, GL_UNSIGNED_INT, 0);
@@ -2645,7 +2642,6 @@ int main(int argc, char* argv[]) {
         one.DrawScoreBoard();
 
 
-
         if ( IKey && glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
             Score1++;
             Score2++;
@@ -2689,7 +2685,7 @@ int main(int argc, char* argv[]) {
         }
         glBindTexture(GL_TEXTURE_2D, greenTextureID);
         glBindVertexArray(sphereVAO);
-        SphereWorldMatrix = translate(mat4(1.0f), vec3(0.0f, 8.0f, 6.0f));
+        SphereWorldMatrix = translate(mat4(1.0f), b1Pos);
         glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &SphereWorldMatrix[0][0]);
         glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
         glDrawElements(GL_TRIANGLE_STRIP, b1.indexCount, GL_UNSIGNED_INT, 0);
@@ -2754,7 +2750,7 @@ int main(int argc, char* argv[]) {
         glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
 
         glBindVertexArray(sphereVAO);
-        SphereWorldMatrix = translate(mat4(1.0f), vec3(0.0f, 8.0f, 6.0f));
+        SphereWorldMatrix = translate(mat4(1.0f), b1Pos);
         glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &SphereWorldMatrix[0][0]);
         glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
         glDrawElements(GL_TRIANGLE_STRIP, b1.indexCount, GL_UNSIGNED_INT, 0);
