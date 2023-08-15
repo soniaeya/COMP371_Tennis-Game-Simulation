@@ -1,6 +1,9 @@
+
+
 //Sonia LI
 //Yasser Ameer 40212780
 //Peter Abou Kassam 40157317
+//Faisal Bari 27517440
 //phong lighting from the TA lab session code
 //sphere from TA lab session
 //Arm hierarchy accomplished
@@ -513,13 +516,315 @@ void DrawGround(GLuint worldmatrix, GLuint colorLocation, int shader_id) {
     glGetUniformLocation(shader_id, "objectColor");
     mat4 gridWorldMatrix;
 
-        gridWorldMatrix = translate(mat4(1.0f), vec3(0.0f, -5.0f, 0.0f))
-                          * rotate(mat4(1.0f), radians(0.0f), vec3(1.0f, 0.0f, 0.0f)) *
-                          scale(mat4(1.0f), vec3(300.0f, -2.0f, 300.0f));
-        glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &gridWorldMatrix[0][0]);
-        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0f, 1.0f, 1.0f)));
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+    gridWorldMatrix = translate(mat4(1.0f), vec3(0.0f, -5.0f, 0.0f))
+                      * rotate(mat4(1.0f), radians(0.0f), vec3(1.0f, 0.0f, 0.0f)) *
+                      scale(mat4(1.0f), vec3(300.0f, -2.0f, 300.0f));
+    glUniformMatrix4fv(worldmatrix, 1, GL_FALSE, &gridWorldMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0f, 1.0f, 1.0f)));
+    glDrawArrays(GL_TRIANGLES, 0, 36);
 
+
+}
+
+void DrawBleachers(GLuint worldLocationMatrix, int texturedCubeVAO, GLuint colorLocation, int shader_id, GLuint bleachersTextureID) {
+    mat4 groundTennisMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(36.0f, 0.02f, 78.0f));
+    //DrawBleachers
+    //first row
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(30.0f, 7.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-30.0f, 7.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    //second row
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(35.0f, 12.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-35.0f, 12.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    //third row
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(40.0f, 17.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-40.0f, 17.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    //fourth row
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(45.0f, 22.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-45.0f, 22.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    //three front support pillars
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(30.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 13.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-30.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 13.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(30.0f, 0.0f, 40.0f)) * scale(mat4(1.0f), vec3(2.0f, 13.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-30.0f, 0.0f, 40.0f)) * scale(mat4(1.0f), vec3(2.0f, 13.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(30.0f, 0.0f, -40.0f)) * scale(mat4(1.0f), vec3(2.0f, 13.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-30.0f, 0.0f, -40.0f)) * scale(mat4(1.0f), vec3(2.0f, 13.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    //three second row support pillars
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(36.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 23.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-36.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 23.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(36.0f, 0.0f, 40.0f)) * scale(mat4(1.0f), vec3(2.0f, 23.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-36.0f, 0.0f, 40.0f)) * scale(mat4(1.0f), vec3(2.0f, 23.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(36.0f, 0.0f, -40.0f)) * scale(mat4(1.0f), vec3(2.0f, 23.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-36.0f, 0.0f, -40.0f)) * scale(mat4(1.0f), vec3(2.0f, 23.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    //three third row support pillars
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(42.5f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 34.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-42.5f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 34.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(42.5f, 0.0f, 40.0f)) * scale(mat4(1.0f), vec3(2.0f, 34.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-42.5f, 0.0f, 40.0f)) * scale(mat4(1.0f), vec3(2.0f, 34.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(42.5f, 0.0f, -40.0f)) * scale(mat4(1.0f), vec3(2.0f, 34.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-42.5f, 0.0f, -40.0f)) * scale(mat4(1.0f), vec3(2.0f, 34.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+
+    //three fourth row support pillars
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(47.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 46.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-47.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(2.0f, 46.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(47.0f, 0.0f, 40.0f)) * scale(mat4(1.0f), vec3(2.0f, 46.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-47.0f, 0.0f, 40.0f)) * scale(mat4(1.0f), vec3(2.0f, 46.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(47.0f, 0.0f, -40.0f)) * scale(mat4(1.0f), vec3(2.0f, 46.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-47.0f, 0.0f, -40.0f)) * scale(mat4(1.0f), vec3(2.0f, 46.0f, 2.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    //three ground level connecting pillars
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(38.5f, -3.0f, 0.0f)) * scale(mat4(1.0f), vec3(17.0f, 2.0f, 2.05f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-38.5f, -3.0f, 0.0f)) * scale(mat4(1.0f), vec3(17.0f, 2.0f, 2.05f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(38.5f, -3.0f, 40.0f)) * scale(mat4(1.0f), vec3(17.0f, 2.0f, 2.05f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-38.5f, -3.0f, 40.0f)) * scale(mat4(1.0f), vec3(17.0f, 2.0f, 2.05f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindVertexArray(texturedCubeVAO);
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(38.5f, -3.0f, -40.0f)) * scale(mat4(1.0f), vec3(17.0f, 2.0f, 2.05f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-38.5f, -3.0f, -40.0f)) * scale(mat4(1.0f), vec3(17.0f, 2.0f, 2.05f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+
+    //bar connecting the front
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-30.0f, 0.0f, 1.0f)) * scale(mat4(1.0f), vec3(1.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(30.0f, 0.0f, 1.0f)) * scale(mat4(1.0f), vec3(1.0f, 1.0f, 80.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+
+    //crossbar supports in the back
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-44.0f, 11.0f, -20.0f)) * rotate(mat4(1.0f), radians(-30.0f), vec3(1.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(1.0f, 1.0f, 40.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(44.0f, 11.0f, -20.0f)) * rotate(mat4(1.0f), radians(-30.0f), vec3(1.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(1.0f, 1.0f, 40.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(-44.0f, 11.0f, 20.0f)) * rotate(mat4(1.0f), radians(30.0f), vec3(1.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(1.0f, 1.0f, 40.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+    glBindTexture(GL_TEXTURE_2D, bleachersTextureID);
+    groundTennisMatrix = translate(mat4(1.0f), vec3(44.0f, 11.0f, 20.0f)) * rotate(mat4(1.0f), radians(30.0f), vec3(1.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(1.0f, 1.0f, 40.0f));
+    glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &groundTennisMatrix[0][0]);
+    glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+    glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
 
 }
 
@@ -1923,14 +2228,39 @@ private:
     int texturedshader;
     int ID;
 };
+bool detectGround(glm::vec3& ballPos, glm::vec3 groundHeight, glm::vec3 groundNormal)
+{
+    return glm::dot(groundNormal, (ballPos - groundHeight)) < 1.0f; // radius
+    return false;
+}
 
+void updateBallPos(glm::vec3& ballpos, glm::vec3& ballvel, glm::vec3& ballacc, float dt)
+{
+    ballvel = ballvel + ballacc * dt;
+    ballpos = ballpos + ballvel * dt;
+}
+
+glm::vec3 boundaryBox(glm::vec3& ballpos, glm::vec3& racketpos)
+{
+    return glm::vec3(abs(ballpos.x - racketpos.x), 0.0f, abs(ballpos.z - racketpos.z));
+}
+
+bool detectCollision(glm::vec3& ballpos, glm::vec3& racketpos, glm::vec3 normal)
+{
+    if ((boundaryBox(ballpos, racketpos).x - 2.0f < 1.3f) && (ballpos.y < 10.0f) && (boundaryBox(ballpos, racketpos).z < 1.3f)) // change y based on racket height
+    {
+        return true;
+    }
+    return false;
+}
 
 int main(int argc, char* argv[]) {
     if (!initContext()) return -1;
     // Load Textures
     //
+
     GLuint whiteTextureID = loadTexture("../assets/textures/white.png");
-    GLuint clayTextureID = loadTexture("../assets/textures/asphalt.png");
+    GLuint clayTextureID = loadTexture("../assets/textures/clay.jpg");
     GLuint courtTextureID = loadTexture("../assets/textures/court.jpg");
     GLuint staduimTextureID = loadTexture("../assets/textures/staduim.jpg");
     GLuint glossyTextureID = loadTexture("../assets/textures/glossy.jpg");
@@ -1944,24 +2274,23 @@ int main(int argc, char* argv[]) {
     GLuint yellowTextureID = loadTexture("../assets/textures/minion.png");
     GLuint sunTextureID = loadTexture("../assets/textures/sun.png");
     GLuint moonTextureID = loadTexture("../assets/textures/electric.png");
-
-
     GLuint racket1TextureID = loadTexture("../assets/textures/letter1.png");
     GLuint racket2TextureID = loadTexture("../assets/textures/letter2.jpg");
     GLuint racket3TextureID = loadTexture("../assets/textures/letter4.jpg");
     GLuint skinTextureID = loadTexture("../assets/textures/skin.png");
-
     GLuint num2ID = loadTexture("../assets/textures/letter4.png");
     GLuint grassID = loadTexture("../assets/textures/grass.png");
+    GLuint player1TextureID = loadTexture("../assets/textures/player1.jpg");
+    GLuint player2TextureID = loadTexture("../assets/textures/player2.jpg");
 
-
+    GLuint bleachersTextureID = metalTextureID;
 
 
     // Setup models
 #if defined(PLATFORM_OSX)
     string heraclesPath = "Models/heracles.obj";
     string cubePath = "Models/cube.obj";
- /string chairPath = "Models/chair.obj";
+    / string chairPath = "Models/chair.obj";
 #else
     string heraclesPath = "../Assets/Models/trees.obj";
 
@@ -1973,6 +2302,7 @@ int main(int argc, char* argv[]) {
     string cloudPath = "../Assets/Models/cloud1.obj";
     string fencePath = "../Assets/Models/fence.obj";
     string moonPath = "../Assets/Models/moon.obj";
+    string trophyPath = "../Assets/Models/trophy.obj";
 #endif
     // Background Color
 
@@ -2028,7 +2358,11 @@ int main(int argc, char* argv[]) {
     int activeVertices7 = moonVertices;
     GLuint activeVAO7 = moonVAO;
 
+    int trophyVertices;
+    GLuint trophyVAO = setupModelEBO(trophyPath, trophyVertices);
 
+    int activeVertices8 = trophyVertices;
+    GLuint activeVAO8 = trophyVAO;
 
     int shaderProgram = compileAndLinkShaders();
     int depthShaderProgram = compileAndLinkDepthShaders(getDepthVertexShaderSource(), getDepthFragmentShaderSource());
@@ -2054,7 +2388,7 @@ int main(int argc, char* argv[]) {
     // Camera parameters for view transform
     //x = width
     // z = length of court
-    vec3 cameraPosition(0.0f, 20.0f, 20.0f);
+    vec3 cameraPosition(0.0f, 10.0f, -35.0f);
     vec3 cameraLookAt(0.0f, 0.0f, 0.0f); // Set the look at position to the origin
     vec3 cameraUp(0.0f, 1.0f, 0.0f);
     vec3 lightPos(20.0f, 50.0f, 10.0f);
@@ -2114,10 +2448,22 @@ int main(int argc, char* argv[]) {
     //Create Tennis Objects
 
     Tennis T1(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 1, 'p');
-    Tennis T2(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 2, 'y');
+    Tennis T2(worldMatrixLocation, colorLocation, polygonMode, texturedShaderProgram, 2, 'p');
 
-    T1.ChangeTennisPosition(translate(mat4(1.0f), vec3(7.0f, 0.0f, 7.0f)));
-    T2.ChangeTennisPosition(translate(mat4(1.0f), vec3(-7.0f, 0.0f, -7.0f)) * scale(mat4(1.0f), vec3(0.35f, 0.35f, 0.35f)));
+    //    T1.ChangeTennisPosition(translate(mat4(1.0f), vec3(7.0f, 0.0f, 7.0f)));
+    //    T2.ChangeTennisPosition(translate(mat4(1.0f), vec3(-7.0f, 0.0f, -7.0f)) * scale(mat4(1.0f), vec3(0.35f, 0.35f, 0.35f)));
+
+    glm::vec3 T1Pos(0.0f, 0.0f, 20.0f);
+    glm::vec3 T2Pos(0.0f, 0.0f, -20.0f);
+
+    glm::vec3 b1Pos(2.0f, 20.0f, 20.0f);
+    glm::vec3 b1Vel(0.0f, 0.0f, 0.0f);
+    glm::vec3 b1Acc(0.0f, -9.81f, 0.0f); // this must remain constant
+    float bounceCoefficient = 0.9f;
+
+    //T1.ChangeTennisPosition(translate(mat4(1.0f), vec3(0.0f, 0.0f, 3.0f)));
+    T1.ChangeTennisPosition(translate(mat4(1.0f), T1Pos)); // position
+    T2.ChangeTennisPosition(translate(mat4(1.0f), T2Pos)); // position
 
 
     Tennis* TCurrent = new Tennis();
@@ -2186,33 +2532,33 @@ int main(int argc, char* argv[]) {
     //glUniform1i(textureLocation, 1);
     glBindVertexArray(texturedCubeVAO);
 
-//
-//    while(!gotUserInput){
-//
-//        std::cout << "Please choose whether you want single (1) or double (2) player mode: ";
-//        std::cin >> playerMode;
-//        if(playerMode==2){
-//            isDouble = true;
-//            T3.ChangeTennisPosition(translate(mat4(1.0f), vec3(-7.0f, 0.0f, 7.0f))) ;
-//            T4.ChangeTennisPosition(translate(mat4(1.0f), vec3(7.0f, 0.0f, -7.0f)) *scale(mat4(1.0f), vec3(0.35f, 0.35f, 0.35f))) ;
-//
-//        }
-//
-//
-//        std::cout << "You may now start your game!\n";
-//        gotUserInput = true;
-//
-//    }
+
+        while(!gotUserInput){
+
+            std::cout << "Please choose whether you want single (1) or double (2) player mode: ";
+            std::cin >> playerMode;
+            if(playerMode==2){
+                isDouble = true;
+                T3.ChangeTennisPosition(translate(mat4(1.0f), vec3(-7.0f, 0.0f, 7.0f))) ;
+                T4.ChangeTennisPosition(translate(mat4(1.0f), vec3(7.0f, 0.0f, -7.0f)) *scale(mat4(1.0f), vec3(0.35f, 0.35f, 0.35f))) ;
+
+            }
+
+
+            std::cout << "You may now start your game!\n";
+            gotUserInput = true;
+
+        }
     float lightPower = 250.0f;
     int ub = 20;
     int lb = 0;
     float random[3];
-    float moonHeight;
-    float sunHeight;
-// Global variable to store the random value
-
-
-// For the other values between lb and ub
+    float moonHeight=0;
+    float sunHeight=0;
+    // Global variable to store the random value
+    bool firstBounce = false;
+    float rotation = 0;
+    // For the other values between lb and ub
 
     while (!glfwWindowShouldClose(window)) {
 
@@ -2226,6 +2572,7 @@ int main(int argc, char* argv[]) {
 
         previousFrameTime += dt;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        updateBallPos(b1Pos, b1Vel, b1Acc, dt); // update ball pos
 
         /// first pass
         glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
@@ -2255,7 +2602,7 @@ int main(int argc, char* argv[]) {
         glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
 
         glBindVertexArray(sphereVAO);
-        mat4 SphereWorldMatrix = translate(mat4(1.0f), vec3(0.0f, 8.0f, 6.0f));
+        mat4 SphereWorldMatrix = translate(mat4(1.0f), b1Pos);
         glUniformMatrix4fv(depthWorldMatrixLocation, 1, GL_FALSE, &SphereWorldMatrix[0][0]);
         glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
         glDrawElements(GL_TRIANGLE_STRIP, b1.indexCount, GL_UNSIGNED_INT, 0);
@@ -2276,7 +2623,7 @@ int main(int argc, char* argv[]) {
         T2.changeShader(depthShaderProgram);
         T2.Draw(metalTextureID, metalTextureID, racket2TextureID);
         T2.changeWorldMatrix(worldMatrixLocation);
-        if(isDouble){
+        if (isDouble) {
             T3.changeWorldMatrix(depthWorldMatrixLocation);
             T3.changeShader(depthShaderProgram);
             T3.Draw(metalTextureID, metalTextureID, racket3TextureID);
@@ -2310,7 +2657,17 @@ int main(int argc, char* argv[]) {
 
 
 
-        if ( IKey && glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
+
+
+        T1.changeShader(texturedShaderProgram);
+        //T1.Draw(metalTextureID, metalTextureID, racket1TextureID);
+        DrawBleachers(worldLocationMatrix, texturedCubeVAO, colorLocation, texturedShaderProgram, bleachersTextureID);
+
+        one.DrawScoreBoard();
+
+
+
+        if (IKey && glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
             Score1++;
             Score2++;
             IKey = 0;
@@ -2319,9 +2676,60 @@ int main(int argc, char* argv[]) {
             IKey = 1;
         }
 
-        T1.changeShader(texturedShaderProgram);
-        //T1.Draw(metalTextureID, metalTextureID, racket1TextureID);
-        one.DrawScoreBoard();
+        if (detectGround(b1Pos, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)))
+        {
+            b1Vel = glm::vec3(0.0f, bounceCoefficient * 10.0f, 0.0f);
+            if (bounceCoefficient > 0.0f)
+            {
+                if (firstBounce == false)
+                {
+                    firstBounce = true;
+                    if (b1Pos.z > 0.0f)
+                    {
+                        Score2 += 1;
+                    }
+                    else if (b1Pos.z < 0.0f)
+                    {
+                        Score1 += 1;
+                    }
+                }
+                bounceCoefficient -= 0.1f;
+            }
+            else
+            {
+                b1Pos = b1Pos * glm::vec3(1.0f, 0.0f, 1.0f);
+                b1Pos = b1Pos + glm::vec3(0.0f, 2.0f, 0.0f);
+                bounceCoefficient = 1.0f;
+                if (b1Pos.z > 0.0f) // set it to the other side to start next round
+                {
+                    b1Pos = glm::vec3(2.0f, 20.0f, 20.0f) * glm::vec3(1.0f, 1.0f, -1.0f);
+                    firstBounce = false;
+                }
+                else if (b1Pos.z < 0.0f)
+                {
+                    b1Pos = glm::vec3(2.0f, 20.0f, 20.0f) * glm::vec3(1.0f, 1.0f, 1.0f);
+                    firstBounce = false;
+                }
+            }
+        }
+        else if (detectCollision(b1Pos, T1Pos, glm::vec3(0.0f, 0.0f, -1.0f)))
+        {
+            float randNum = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
+            //b1Vel = glm::vec3(0.0f * randNum, 10.0f, 0.0f);
+            b1Vel = glm::vec3(3.5f * randNum, 10.0f, 20.0f) * glm::vec3(1.0f, 1.0f, -1.0f);
+        }
+        else if (detectCollision(b1Pos, T2Pos, glm::vec3(0.0f, 0.0f, 1.0f)))
+        {
+            float randNum = ((float)rand() / RAND_MAX) * 2.0f - 1.0f;
+            //b1Vel = glm::vec3(0.0f * randNum, 10.0f, 0.0f);
+            b1Vel = glm::vec3(3.5f * randNum, 10.0f, 20.0f) * glm::vec3(1.0f, 1.0f, 1.0f);
+        }
+
+        if(Score1 == 9 || Score2 == 9)
+        {
+            b1Pos = glm::vec3(100.0f, 100.0f, 100.0f);
+        }
+
         one.DrawPlayerScore(Score1);
         Two.DrawPlayerScore(Score2);
         T1.changeShader(texturedShaderProgram);
@@ -2330,7 +2738,7 @@ int main(int argc, char* argv[]) {
         T2.Draw(metalTextureID, metalTextureID, racket2TextureID);
 
 
-        if(isDouble){
+        if (isDouble) {
             T3.changeShader(texturedShaderProgram);
             T3.Draw(metalTextureID, metalTextureID, racket3TextureID);
             T4.changeShader(texturedShaderProgram);
@@ -2339,7 +2747,7 @@ int main(int argc, char* argv[]) {
         }
         glBindTexture(GL_TEXTURE_2D, greenTextureID);
         glBindVertexArray(sphereVAO);
-        SphereWorldMatrix = translate(mat4(1.0f), vec3(0.0f, 8.0f, 6.0f));
+        SphereWorldMatrix = translate(mat4(1.0f), b1Pos);
         glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &SphereWorldMatrix[0][0]);
         glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
         glDrawElements(GL_TRIANGLE_STRIP, b1.indexCount, GL_UNSIGNED_INT, 0);
@@ -2404,20 +2812,21 @@ int main(int argc, char* argv[]) {
         glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
 
         glBindVertexArray(sphereVAO);
-        SphereWorldMatrix = translate(mat4(1.0f), vec3(0.0f, 8.0f, 6.0f));
+        SphereWorldMatrix = translate(mat4(1.0f), b1Pos);
         glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &SphereWorldMatrix[0][0]);
         glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
         glDrawElements(GL_TRIANGLE_STRIP, b1.indexCount, GL_UNSIGNED_INT, 0);
 
 
         glBindVertexArray(texturedCubeVAO);
+
         glBindTexture(GL_TEXTURE_2D, whiteTextureID);
 
         T1.changeShader(texturedShaderProgram);
         T1.Draw(metalTextureID, metalTextureID, glossyTextureID);
         T2.Draw(metalTextureID, metalTextureID, metalTextureID);
 
-        if(isDouble){
+        if (isDouble) {
             T3.Draw(metalTextureID, metalTextureID, metalTextureID);
             T4.Draw(metalTextureID, metalTextureID, metalTextureID);
 
@@ -2595,7 +3004,7 @@ int main(int argc, char* argv[]) {
         glBindTexture(GL_TEXTURE_2D, moonTextureID);
         glBindVertexArray(activeVAO7);
 
-//        float moonHeight = 30*std::cos(glfwGetTime())+30;
+        //        float moonHeight = 30*std::cos(glfwGetTime())+30;
 
         tempworldmatrix = translate(mat4(1.0f), vec3(-75.0f, moonHeight, -75.0f)) * rotate(mat4(1.0f), radians(20.0f), vec3(1.0f, 0.0f, 1.0f)) * scale(mat4(1.0f), vec3(5.5f, 5.5f, 5.5f));;
         glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
@@ -2606,23 +3015,23 @@ int main(int argc, char* argv[]) {
         //sun
         glBindTexture(GL_TEXTURE_2D, sunTextureID);
         glBindVertexArray(sphereVAO);
-        SphereWorldMatrix = translate(mat4(1.0f), vec3(75.0f, sunHeight, -75.0f))*scale(mat4(1.0f), vec3(6.0f, 6.0f, 6.0f));
+        SphereWorldMatrix = translate(mat4(1.0f), vec3(75.0f, sunHeight, -75.0f)) * scale(mat4(1.0f), vec3(6.0f, 6.0f, 6.0f));
         glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &SphereWorldMatrix[0][0]);
         glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
         glDrawElements(GL_TRIANGLE_STRIP, b1.indexCount, GL_UNSIGNED_INT, 0);
 
-//        glUniform1f(glGetUniformLocation(shaderProgram, "opacity"), 1.0f);
-//        //// the chair on both side
+        //        glUniform1f(glGetUniformLocation(shaderProgram, "opacity"), 1.0f);
+        //        //// the chair on both side
 
-//        glActiveTexture(GL_TEXTURE1);
-//        glBindTexture(GL_TEXTURE_2D, whiteTextureID);
-//        glUniform1i(textureLocation, 1);
-//        tempworldmatrix = translate(mat4(1.0f), vec3(-22.0f, 0.0f, 0.0f)) * rotate(mat4(1.0f), radians(180.0f), vec3(0.0f, 1.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 5.0f, 5.0f));
-//        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
-//        glBindVertexArray(activeVAO1);
-//        // Draw geometry
-//        glUniform3fv(colorLocation, 1, value_ptr(vec3(0.0, 1.0, 0.0)));
-//        glDrawElements(GL_LINES, activeVertices1, GL_UNSIGNED_INT, 0);
+        //        glActiveTexture(GL_TEXTURE1);
+        //        glBindTexture(GL_TEXTURE_2D, whiteTextureID);
+        //        glUniform1i(textureLocation, 1);
+        //        tempworldmatrix = translate(mat4(1.0f), vec3(-22.0f, 0.0f, 0.0f)) * rotate(mat4(1.0f), radians(180.0f), vec3(0.0f, 1.0f, 0.0f)) * scale(mat4(1.0f), vec3(5.0f, 5.0f, 5.0f));
+        //        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+        //        glBindVertexArray(activeVAO1);
+        //        // Draw geometry
+        //        glUniform3fv(colorLocation, 1, value_ptr(vec3(0.0, 1.0, 0.0)));
+        //        glDrawElements(GL_LINES, activeVertices1, GL_UNSIGNED_INT, 0);
 
         glBindVertexArray(0);
         glBindTexture(GL_TEXTURE_2D, woodTextureID);
@@ -2635,6 +3044,72 @@ int main(int argc, char* argv[]) {
 
 
         glBindVertexArray(0);
+        if (Score1 == 9)
+        {
+            glBindTexture(GL_TEXTURE_2D, yellowTextureID);
+            glBindVertexArray(activeVAO8);
+
+
+
+            mat4 tempworldmatrix = translate(mat4(1.0f), vec3(0.0f, 20, 0.0f)) * rotate(mat4(1.0f), radians(90.0f), vec3(-1.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.5f, 0.5f, 0.5f));;
+            glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+            glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+            glDrawElements(GL_TRIANGLE_STRIP, activeVertices8, GL_UNSIGNED_INT, 0);
+
+            glUseProgram(texturedShaderProgram);
+            glBindTexture(GL_TEXTURE_2D, player1TextureID);
+            glBindVertexArray(texturedCubeVAO);
+            mat4 celebrationMatrix = translate(mat4(1.0f), vec3(0.0f, 15.0f, 0.0f)) * rotate(mat4(1.0f), radians(180.0f), vec3(1.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(10.0f, 5.0f, 5.0f));
+            worldLocationMatrix = glGetUniformLocation(shaderProgram, "worldMatrix");
+            glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &celebrationMatrix[0][0]);
+            glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+            glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+
+            cameraPosition.x = 20.0f;
+            cameraPosition.y = 40.0f;
+            cameraPosition.z = 0.0f;
+            viewMatrix = glm::lookAt(cameraPosition, cameraLookAt, cameraUp);
+            viewMatrix = viewMatrix * rotate(mat4(1.0f), radians(rotation), vec3(0.0f, 1.0f, 0.0f));
+            rotation = rotation - 0.1;
+
+            glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
+            b1.~Ball();
+        }
+        else if (Score2 == 9)
+        {
+            glBindTexture(GL_TEXTURE_2D, yellowTextureID);
+            glBindVertexArray(activeVAO8);
+
+
+
+            mat4  tempworldmatrix = translate(mat4(1.0f), vec3(0.0f, 20, 0.0f)) * rotate(mat4(1.0f), radians(90.0f), vec3(-1.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.5f, 0.5f, 0.5f));;
+            glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+            glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+            glDrawElements(GL_TRIANGLE_STRIP, activeVertices8, GL_UNSIGNED_INT, 0);
+
+            glUseProgram(texturedShaderProgram);
+            glBindTexture(GL_TEXTURE_2D, player2TextureID);
+            glBindVertexArray(texturedCubeVAO);
+            mat4 celebrationMatrix = translate(mat4(1.0f), vec3(0.0f, 15.0f, 0.0f)) * rotate(mat4(1.0f), radians(180.0f), vec3(1.0f, 0.0f, 0.0f)) * scale(mat4(1.0f), vec3(10.0f, 5.0f, 5.0f));
+            worldLocationMatrix = glGetUniformLocation(shaderProgram, "worldMatrix");
+            glUniformMatrix4fv(worldLocationMatrix, 1, GL_FALSE, &celebrationMatrix[0][0]);
+            glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+            glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices, starting at index 0
+            viewMatrix = viewMatrix * rotate(mat4(1.0f), radians(-1.1f), vec3(0.0f, 1.0f, 0.0f));
+
+            glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
+
+
+            cameraPosition.x = 20.0f;
+            cameraPosition.y = 40.0f;
+            cameraPosition.z = 0.0f;
+            viewMatrix = glm::lookAt(cameraPosition, cameraLookAt, cameraUp);
+            viewMatrix = viewMatrix * rotate(mat4(1.0f), radians(rotation), vec3(0.0f, 1.0f, 0.0f));
+            rotation = rotation - 0.1;
+            glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
+            b1.~Ball();
+        }
+
 
 
         /// 4 projector of lights
@@ -2645,7 +3120,7 @@ int main(int argc, char* argv[]) {
 
         glBindVertexArray(activeVAO4);
         // Draw geometry
-        tempworldmatrix = translate(mat4(1.0f), vec3(22.0f, 0.0f, 40.0))* scale(mat4(1.0f), vec3(10.05f,10.05f, 10.05f));;
+        tempworldmatrix = translate(mat4(1.0f), vec3(22.0f, 0.0f, 40.0)) * scale(mat4(1.0f), vec3(10.05f, 10.05f, 10.05f));;
         glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
         glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
         glDrawElements(GL_TRIANGLE_STRIP, activeVertices4, GL_UNSIGNED_INT, 0);
@@ -2692,7 +3167,7 @@ int main(int argc, char* argv[]) {
 
 //sonia
         /// MINION
-        for (int row = 0; row < 20; row +=5) {
+        for (int row = 0; row < 20; row += 5) {
 
             int height = 0;
             row == 0 ? height = 5 : height;
@@ -2718,7 +3193,8 @@ int main(int argc, char* argv[]) {
                         glDrawElements(GL_TRIANGLES, activeVertices2, GL_UNSIGNED_INT, 0);
 
                         glBindVertexArray(0);
-                    } else {
+                    }
+                    else {
                         glActiveTexture(GL_TEXTURE1);
                         glBindTexture(GL_TEXTURE_2D, yellowTextureID);
                         glUniform1i(textureLocation, 1);
@@ -2791,7 +3267,7 @@ int main(int argc, char* argv[]) {
                         glActiveTexture(GL_TEXTURE1);
                         glBindTexture(GL_TEXTURE_2D, yellowTextureID);
                         glUniform1i(textureLocation, 1);
-                        tempworldmatrix = translate(mat4(1.0f), vec3(-30.0f - row, height+10.0f, i)) *
+                        tempworldmatrix = translate(mat4(1.0f), vec3(-30.0f - row, height + 10.0f, i)) *
                                           rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f)) *
                                           scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
                         glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
@@ -2820,11 +3296,12 @@ int main(int argc, char* argv[]) {
                         glDrawElements(GL_TRIANGLES, activeVertices2, GL_UNSIGNED_INT, 0);
 
                         glBindVertexArray(0);
-                    } else {
+                    }
+                    else {
                         glActiveTexture(GL_TEXTURE1);
                         glBindTexture(GL_TEXTURE_2D, yellowTextureID);
                         glUniform1i(textureLocation, 1);
-                        tempworldmatrix = translate(mat4(1.0f), vec3(30.0f + row, height+10.0f, i)) *
+                        tempworldmatrix = translate(mat4(1.0f), vec3(30.0f + row, height + 10.0f, i)) *
                                           rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, -1.0f, 0.0f)) *
                                           scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
                         glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
@@ -2895,35 +3372,35 @@ int main(int argc, char* argv[]) {
 
         for (float i = -65; i < 65; i = i + 5) {
             glBindVertexArray(activeVAO6);
-            tempworldmatrix = translate(mat4(1.0f), vec3(i, 0.0f, 55.0f))  * scale(mat4(1.0f), vec3(0.025f, 0.025f, 0.025f));;
+            tempworldmatrix = translate(mat4(1.0f), vec3(i, 0.0f, 55.0f)) * scale(mat4(1.0f), vec3(0.025f, 0.025f, 0.025f));;
             glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
             glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
             glDrawElements(GL_LINES, activeVertices6, GL_UNSIGNED_INT, 0);
         }
 
 
-//        glActiveTexture(GL_TEXTURE1);
-//        glBindTexture(GL_TEXTURE_2D, yellowTextureID);
-//        glUniform1i(textureLocation, 1);
-//        glBindVertexArray(activeVAO3);
-//        // Draw geometry
-//        tempworldmatrix = translate(mat4(1.0f), vec3(22.0f, 0.0f, 5.0)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, -1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
-//        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
-//        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
-//        glDrawElements(GL_TRIANGLE_STRIP, activeVertices3, GL_UNSIGNED_INT, 0);
-//
-//
-//
-//        glActiveTexture(GL_TEXTURE1);
-//        glBindTexture(GL_TEXTURE_2D, glossyTextureID);
-//        glUniform1i(textureLocation, 1);
-//        glBindVertexArray(activeVAO3);
-//        // Draw geometry
-//        tempworldmatrix = translate(mat4(1.0f), vec3(-22.0f, 0.0f, 5.0)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
-//        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
-//        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
-//        glDrawElements(GL_TRIANGLE_STRIP, activeVertices3, GL_UNSIGNED_INT, 0);
-//        glBindVertexArray(0);
+        //        glActiveTexture(GL_TEXTURE1);
+        //        glBindTexture(GL_TEXTURE_2D, yellowTextureID);
+        //        glUniform1i(textureLocation, 1);
+        //        glBindVertexArray(activeVAO3);
+        //        // Draw geometry
+        //        tempworldmatrix = translate(mat4(1.0f), vec3(22.0f, 0.0f, 5.0)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, -1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
+        //        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+        //        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        //        glDrawElements(GL_TRIANGLE_STRIP, activeVertices3, GL_UNSIGNED_INT, 0);
+        //
+        //
+        //
+        //        glActiveTexture(GL_TEXTURE1);
+        //        glBindTexture(GL_TEXTURE_2D, glossyTextureID);
+        //        glUniform1i(textureLocation, 1);
+        //        glBindVertexArray(activeVAO3);
+        //        // Draw geometry
+        //        tempworldmatrix = translate(mat4(1.0f), vec3(-22.0f, 0.0f, 5.0)) * rotate(mat4(1.0f), radians(90.0f), vec3(0.0f, 1.0f, 0.0f)) * scale(mat4(1.0f), vec3(0.05f, 0.05f, 0.05f));;
+        //        glUniformMatrix4fv(textureshaderworld, 1, GL_FALSE, &tempworldmatrix[0][0]);
+        //        glUniform3fv(colorLocation, 1, value_ptr(vec3(1.0, 1.0, 1.0)));
+        //        glDrawElements(GL_TRIANGLE_STRIP, activeVertices3, GL_UNSIGNED_INT, 0);
+        //        glBindVertexArray(0);
 
         glUseProgram(shaderProgram);
 
@@ -2935,15 +3412,13 @@ int main(int argc, char* argv[]) {
 
         // Pressing the spacebar: re-position the model at a random location on the grid.
 
-        if (previousSpaceState == GLFW_RELEASE && glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) // move camera to the left
+        if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) // move camera to the left
         {
-            int ub = 20;
-            int lb = -20;
-            int random[3];
-            for (int i = 0; i < 3; i++) {
-                random[i] = (rand() % (ub - lb + 1)) + lb;
-            }
-            *CurrentTranslationMatrix = translate(mat4(1.0f), vec3(random[0] + 0.0f, random[1] + 0.0f, random[2] + 0.0f));
+            cameraPosition.y += 0.5f;
+        }
+        if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) // move camera to the left
+        {
+            cameraPosition.y -= 0.5f;
         }
         previousSpaceState = glfwGetKey(window, GLFW_KEY_SPACE);
 
@@ -2994,59 +3469,108 @@ int main(int argc, char* argv[]) {
         // a → rotate left 5 degrees about Y axi
         // d → rotate right 5 degrees about Y axis.
 
-        //Translations
-        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) // move left
+        // cameraposition
+        if ( glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS) // move left
         {
-            *CurrentTranslationMatrix = *CurrentTranslationMatrix * translate(mat4(1.0f), vec3(-0.05f, 0.0f, 0.0f));
-
+            cameraPosition.z += 1.0f;
         }
-        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) // move right
+        if ( glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) // move left
         {
-            *CurrentTranslationMatrix = *CurrentTranslationMatrix * translate(mat4(1.0f), vec3(+0.05f, 0.0f, 0.0f));
-
+            cameraPosition.z -= 1.0f;
         }
-        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) // move up
+        if ( glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) // move left
         {
-            *CurrentTranslationMatrix = *CurrentTranslationMatrix * translate(mat4(1.0f), vec3(0.0f, 0.05f, 0.0f));
-
+            cameraPosition.x += 1.0f;
         }
-        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) // move down
+        if ( glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) // move left
         {
-            *CurrentTranslationMatrix = *CurrentTranslationMatrix * translate(mat4(1.0f), vec3(0.0f, -0.05f, 0.0f));
-
-        }
-        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) // move forward
-        {
-            *CurrentTranslationMatrix = *CurrentTranslationMatrix * translate(mat4(1.0f), vec3(0.0f, 0.0f, -0.05f));
-
-        }
-        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) // move backward
-        {
-            *CurrentTranslationMatrix = *CurrentTranslationMatrix * translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.05f));
-
+            cameraPosition.x -= 1.0f;
         }
 
-        //Rotations
-        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE && glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) // rotate left on y-axis
+        // Translations
+        if ( glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) // move left
         {
-            *CurrentRotationMatrix = *CurrentRotationMatrix * rotate(mat4(1.0f), radians(1.0f), vec3(0.0f, 1.0f, 0.0f)) * translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f));
+            T1.UpperarmgroupTransferMatrix = T1.UpperarmgroupTransferMatrix * translate(mat4(1.0f), vec3(-1.0f, 0.0f, 0.0f));
+            T1Pos += vec3(-1.0f, 0.0f, 0.0f);
+        }
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) // move right
+        {
+            T1.UpperarmgroupTransferMatrix = T1.UpperarmgroupTransferMatrix * translate(mat4(1.0f), vec3(+1.0f, 0.0f, 0.0f));
+            T1Pos += vec3(+1.0f, 0.0f, 0.0f);
+        }
+        if ( glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) // move up
+        {
+            T1.UpperarmgroupTransferMatrix = T1.UpperarmgroupTransferMatrix * translate(mat4(1.0f), vec3(0.0f, 0.05f, 0.0f));
 
         }
-        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE && glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) // rotate right on y-axis
+        if ( glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) // move down
         {
-            *CurrentRotationMatrix = *CurrentRotationMatrix * rotate(mat4(1.0f), radians(-1.0f), vec3(0.0f, 1.0f, 0.0f)) * translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f));
+            T1.UpperarmgroupTransferMatrix = T1.UpperarmgroupTransferMatrix * translate(mat4(1.0f), vec3(0.0f, -0.05f, 0.0f));
 
         }
-        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE && glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) // rotate left on z-axis
+        if ( glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) // move forward
         {
-            *CurrentRotationMatrix = *CurrentRotationMatrix * rotate(mat4(1.0f), radians(1.0f), vec3(0.0f, 0.0f, 1.0f)) * translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f));
+            T1.UpperarmgroupTransferMatrix = T1.UpperarmgroupTransferMatrix * translate(mat4(1.0f), vec3(0.0f, 0.0f, -0.05f));
 
         }
-        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE && glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) // rotate right on z-axis
+        if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) // move backward
         {
-            *CurrentRotationMatrix = *CurrentRotationMatrix * rotate(mat4(1.0f), radians(-1.0f), vec3(0.0f, 0.0f, 1.0f)) * translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f));
+            T1.UpperarmgroupTransferMatrix = T1.UpperarmgroupTransferMatrix * translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.05f));
 
         }
+
+
+        if ( glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) // move left
+        {
+            T2.UpperarmgroupTransferMatrix = T2.UpperarmgroupTransferMatrix * translate(mat4(1.0f), vec3(-1.0f, 0.0f, 0.0f));
+            T2Pos += vec3(-1.0f, 0.0f, 0.0f);
+        }
+        if ( glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) // move right
+        {
+            T2.UpperarmgroupTransferMatrix = T2.UpperarmgroupTransferMatrix * translate(mat4(1.0f), vec3(+1.0f, 0.0f, 0.0f));
+            T2Pos += vec3(+1.0f, 0.0f, 0.0f);
+        }
+        if ( glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) // move up
+        {
+            T2.UpperarmgroupTransferMatrix = T2.UpperarmgroupTransferMatrix * translate(mat4(1.0f), vec3(0.0f, 0.05f, 0.0f));
+
+        }
+        if ( glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) // move down
+        {
+            T2.UpperarmgroupTransferMatrix = T2.UpperarmgroupTransferMatrix * translate(mat4(1.0f), vec3(0.0f, -0.05f, 0.0f));
+
+        }
+        //if ( glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) // move forward
+        //{
+        //    T2.UpperarmgroupTransferMatrix = T2.UpperarmgroupTransferMatrix * translate(mat4(1.0f), vec3(0.0f, 0.0f, -0.05f));
+
+        //}
+        //if ( glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) // move backward
+        //{
+        //    T2.UpperarmgroupTransferMatrix = T2.UpperarmgroupTransferMatrix * translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.05f));
+
+        //    }
+        ////Rotations
+        //if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE && glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) // rotate left on y-axis
+        //{
+        //    *CurrentRotationMatrix = *CurrentRotationMatrix * rotate(mat4(1.0f), radians(1.0f), vec3(0.0f, 1.0f, 0.0f)) * translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f));
+
+        //}
+        //if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE && glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) // rotate right on y-axis
+        //{
+        //    *CurrentRotationMatrix = *CurrentRotationMatrix * rotate(mat4(1.0f), radians(-1.0f), vec3(0.0f, 1.0f, 0.0f)) * translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f));
+
+        //}
+        //if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE && glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) // rotate left on z-axis
+        //{
+        //    *CurrentRotationMatrix = *CurrentRotationMatrix * rotate(mat4(1.0f), radians(1.0f), vec3(0.0f, 0.0f, 1.0f)) * translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f));
+
+        //}
+        //if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE && glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) // rotate right on z-axis
+        //{
+        //    *CurrentRotationMatrix = *CurrentRotationMatrix * rotate(mat4(1.0f), radians(-1.0f), vec3(0.0f, 0.0f, 1.0f)) * translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f));
+
+        //}
 
         //The user can incrementally size up the model
         // - pressing ‘U’ for scale-up
@@ -3068,36 +3592,36 @@ int main(int argc, char* argv[]) {
         //    - up arrow → Ry
         //    - down arrow → R-y
         //    - (Rx denotes a small anti-clockwise rotation about positive x axis, R-x about negative x axis, etc.)
-        if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-        {
-            worldOrientation = worldOrientation * rotate(mat4(1.0f), radians(1.5f), vec3(1.0f, 0.0f, 0.0f));
-            glUniformMatrix4fv(WorldMatrixRotation, 1, GL_FALSE, &worldOrientation[0][0]);
-        }
-        if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-        {
-            worldOrientation = worldOrientation * rotate(mat4(1.0f), radians(-1.5f), vec3(1.0f, 0.0f, 0.0f));
-            glUniformMatrix4fv(WorldMatrixRotation, 1, GL_FALSE, &worldOrientation[0][0]);
-        }
-        if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-        {
-            worldOrientation = worldOrientation * rotate(mat4(1.0f), radians(1.5f), vec3(0.0f, 1.0f, 0.0f));
-            glUniformMatrix4fv(WorldMatrixRotation, 1, GL_FALSE, &worldOrientation[0][0]);
-        }
-        if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-        {
-            worldOrientation = worldOrientation * rotate(mat4(1.0f), radians(-1.5f), vec3(0.0f, 1.0f, 0.0f));
-            glUniformMatrix4fv(WorldMatrixRotation, 1, GL_FALSE, &worldOrientation[0][0]);
-        }
-        if (glfwGetKey(window, GLFW_KEY_HOME) == GLFW_PRESS)
-        {
-            worldOrientation = WorldRotationDeffault;
-            glUniformMatrix4fv(WorldMatrixRotation, 1, GL_FALSE, &worldOrientation[0][0]);
+        /* if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+         {
+             worldOrientation = worldOrientation * rotate(mat4(1.0f), radians(1.5f), vec3(1.0f, 0.0f, 0.0f));
+             glUniformMatrix4fv(WorldMatrixRotation, 1, GL_FALSE, &worldOrientation[0][0]);
+         }
+         if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+         {
+             worldOrientation = worldOrientation * rotate(mat4(1.0f), radians(-1.5f), vec3(1.0f, 0.0f, 0.0f));
+             glUniformMatrix4fv(WorldMatrixRotation, 1, GL_FALSE, &worldOrientation[0][0]);
+         }
+         if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+         {
+             worldOrientation = worldOrientation * rotate(mat4(1.0f), radians(1.5f), vec3(0.0f, 1.0f, 0.0f));
+             glUniformMatrix4fv(WorldMatrixRotation, 1, GL_FALSE, &worldOrientation[0][0]);
+         }
+         if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+         {
+             worldOrientation = worldOrientation * rotate(mat4(1.0f), radians(-1.5f), vec3(0.0f, 1.0f, 0.0f));
+             glUniformMatrix4fv(WorldMatrixRotation, 1, GL_FALSE, &worldOrientation[0][0]);
+         }
+         if (glfwGetKey(window, GLFW_KEY_HOME) == GLFW_PRESS)
+         {
+             worldOrientation = WorldRotationDeffault;
+             glUniformMatrix4fv(WorldMatrixRotation, 1, GL_FALSE, &worldOrientation[0][0]);
 
-            *CurrentTranslationMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f));
-            *CurrentRotationMatrix = rotate(mat4(1.0f), radians(0.0f), vec3(0.0f, 1.0f, 0.0f));
-            *CurrentScaleMatrix = scale(mat4(1.0f), vec3(1.0f, 1.0f, 1.0f));
-        }
-
+             *CurrentTranslationMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, 0.0f));
+             *CurrentRotationMatrix = rotate(mat4(1.0f), radians(0.0f), vec3(0.0f, 1.0f, 0.0f));
+             *CurrentScaleMatrix = scale(mat4(1.0f), vec3(1.0f, 1.0f, 1.0f));
+         }
+ */
 
         //Polygone view
 
@@ -3136,7 +3660,7 @@ int main(int argc, char* argv[]) {
         previousXState = glfwGetKey(window, GLFW_KEY_X);
 
 
-        if (previousBState == GLFW_RELEASE && glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) // scale down
+        if (previousBState == GLFW_RELEASE && glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS) // scale down
         {
             glUseProgram(texturedShaderProgram);
             if (istextureinuse1 == 0) {
@@ -3151,7 +3675,7 @@ int main(int argc, char* argv[]) {
             shaderProgram = texturedShaderProgram;
 
         }
-        previousBState = glfwGetKey(window, GLFW_KEY_B);
+        previousBState = glfwGetKey(window, GLFW_KEY_V);
 
 
 
@@ -3231,42 +3755,51 @@ int main(int argc, char* argv[]) {
         float theta = radians(cameraHorizontalAngle);
         float phi = radians(cameraVerticalAngle);
 
-        cameraLookAt = vec3(cosf(phi) * cosf(theta), sinf(phi), -cosf(phi) * sinf(theta));
-        vec3 cameraSideVector = glm::cross(cameraLookAt, vec3(0.0f, 1.0f, 0.0f));
 
-        glm::normalize(cameraSideVector);
 
-        viewMatrix = lookAt(cameraPosition, cameraPosition + cameraLookAt, cameraUp);
 
-        GLuint viewMatrixLocation = glGetUniformLocation(shaderProgram, "viewMatrix");
-        glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
 
+
+        if (Score1 != 9 && Score2 != 9)
+        {
+
+            cameraLookAt = vec3(cosf(phi) * cosf(theta), sinf(phi), -cosf(phi) * sinf(theta));
+            vec3 cameraSideVector = glm::cross(cameraLookAt, vec3(0.0f, 1.0f, 0.0f));
+
+            glm::normalize(cameraSideVector);
+
+            viewMatrix = lookAt(cameraPosition, cameraPosition + cameraLookAt, cameraUp);
+
+            GLuint viewMatrixLocation = glGetUniformLocation(shaderProgram, "viewMatrix");
+            glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
+
+        }
         // Create a point light
 
 
         // ... (Initialize your shaders and objects here)
 
         // Before rendering, update the light properties in the shader
-        moonHeight = 25*std::cos(glfwGetTime()+0.5)+25;
-        sunHeight = -25*std::cos(glfwGetTime()+0.5)+25;
+        moonHeight = 25 * std::cos(glfwGetTime() + 0.5) + 25;
+        sunHeight = -25 * std::cos(glfwGetTime() + 0.5) + 25;
         //Light Flicker
-        if(sec < 3||6<=sec<9||12<=sec<15||18<=sec<21) {
-            lightPower = lightPower+ std::cos(sec)*2.8f;
+        if (sec < 3 || 6 <= sec < 9 || 12 <= sec < 15 || 18 <= sec < 21) {
+            lightPower = lightPower + std::cos(sec) * 2.8f;
             GLuint lightLocation = glGetUniformLocation(texturedShaderProgram, "lightPower");
             glUniform1f(lightLocation, lightPower);
 
 
         }
-        else{
+        else {
 
-            lightPower = lightPower+ std::sin(sec)*2.8f;
+            lightPower = lightPower + std::sin(sec) * 2.8f;
             GLuint lightLocation = glGetUniformLocation(texturedShaderProgram, "lightPower");
             glUniform1f(lightLocation, lightPower);
 
 
 
         }
-glUseProgram(0);
+        glUseProgram(0);
         glUseProgram(shaderProgram);
         GLuint viewMatrixLocation_m = glGetUniformLocation(shaderProgram, "viewMatrix");
         glUniformMatrix4fv(viewMatrixLocation_m, 1, GL_FALSE, &viewMatrix[0][0]);
